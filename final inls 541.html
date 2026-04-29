@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purchasing Power — CPI Inflation</title>
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:#ffffff;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px 12px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #EAE5DC;
+  border-radius:22px;
+  padding:32px 28px 26px;
+  width:100%;max-width:800px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.08);
+}
+
+.toprow{
+  display:flex;justify-content:flex-end;
+  align-items:flex-start;
+  margin-bottom:6px;
+}
+.yr{
+  font-size:44px;font-weight:800;color:#1A1714;
+  font-variant-numeric:tabular-nums;line-height:1;
+  letter-spacing:-1px;
+}
+
+.ctry{display:flex;gap:6px;margin:18px 0 28px;flex-wrap:wrap;}
+.cbtn{
+  padding:6px 18px;border-radius:20px;
+  border:1.5px solid #E5E0D6;background:#fff;
+  font-size:12px;font-weight:600;cursor:pointer;
+  color:#9A9590;transition:all 0.2s;font-family:inherit;
+}
+.cbtn.on{background:#f17b79;color:#fff;border-color:#f17b79;}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-bottom:30px;
+}
+.cell{display:flex;flex-direction:column;align-items:center;gap:8px;}
+
+/* ICON CONTAINER */
+.ico-wrap{
+  position:relative;
+  width:90px;height:90px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+
+/* grey base circle — always full, always visible */
+.ico-bg-grey{
+  position:absolute;inset:0;
+  border-radius:50%;
+  background:#e8e4e3;
+}
+
+/* pink circle on top — clips in sync with the icon fill */
+.ico-bg-circle{
+  position:absolute;inset:0;
+  border-radius:50%;
+  background:var(--bg);
+  clip-path:inset(0% 0 0% 0);
+  transition:clip-path 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* BASE grey icon — always shows full outline */
+.ico-base{
+  position:absolute;
+  font-size:42px;
+  color:#998f8c;
+  z-index:1;
+  line-height:1;
+}
+
+/* COLORED icon — clipped from top to simulate fill draining */
+.ico-colored{
+  position:absolute;
+  font-size:42px;
+  z-index:2;
+  line-height:1;
+  clip-path:inset(0% 0 0% 0);
+  transition:clip-path 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* subtle waterline shimmer at the fill boundary */
+.waterline{
+  position:absolute;
+  left:10%;right:10%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.8),transparent);
+  border-radius:2px;
+  z-index:3;
+  transition:top 0.9s cubic-bezier(0.4,0,0.2,1);
+  pointer-events:none;
+  opacity:0.7;
+}
+
+.cat-name{
+  font-size:10px;font-weight:600;
+  color:#9A9590;text-align:center;line-height:1.4;
+  text-transform:uppercase;letter-spacing:0.3px;
+}
+.pp-val{
+  font-size:18px;font-weight:700;text-align:center;
+  font-variant-numeric:tabular-nums;
+  transition:color 0.4s;
+}
+.pp-delta{
+  font-size:10px;text-align:center;
+  min-height:15px;font-variant-numeric:tabular-nums;
+  font-weight:500;
+}
+
+/* TIMELINE */
+.tl-wrap{margin-bottom:16px;}
+input[type=range]{
+  width:100%;cursor:pointer;
+  accent-color:#f17b79;
+}
+.tl-labels{
+  display:flex;justify-content:space-between;
+  font-size:10px;color:#C0BAB0;margin-top:5px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* CONTROLS */
+.ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.btn{
+  padding:8px 20px;border-radius:10px;
+  border:1.5px solid #E5E0D6;background:#fff;
+  font-size:12px;font-weight:600;cursor:pointer;
+  color:#1A1714;transition:all 0.15s;font-family:inherit;
+}
+.btn:hover{background:#F8F6F2;}
+.btn.primary{background:#f17b79;color:#fff;border-color:#f17b79;}
+.btn.primary:hover{opacity:0.85;}
+.spd-lbl{font-size:11px;color:#9A9590;margin-left:4px;}
+
+.note{
+  font-size:10.5px;color:#C0BAB0;line-height:1.6;
+  border-top:1px solid #F0ECE6;
+  padding-top:14px;margin-top:14px;
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="toprow">
+    <div class="yr" id="yr-lbl">2015</div>
+  </div>
+
+  <div class="ctry">
+    <button class="cbtn on" id="btn-usa" onclick="setCty('USA')">🇺🇸 United States</button>
+    <button class="cbtn" id="btn-can" onclick="setCty('Canada')">🇨🇦 Canada</button>
+  </div>
+
+  <div class="grid">
+    
+    <div class="cell">
+      <div class="ico-wrap" style="--bg:#fde8e8;">
+        <div class="ico-bg-grey"></div>
+        <div class="ico-bg-circle" id="bg-food"></div>
+        <i class="fi fi-rr-mug-hot-alt ico-base"></i>
+        <i class="fi fi-rr-mug-hot-alt ico-colored" id="fill-food" style="color:#f17b79;"></i>
+        <div class="waterline" id="wl-food"></div>
+      </div>
+      <div class="cat-name">Food &amp; Beverages</div>
+      <div class="pp-val" id="val-food" style="color:#f17b79;">100%</div>
+      <div class="pp-delta" id="dlt-food"></div>
+    </div>
+
+    <div class="cell">
+      <div class="ico-wrap" style="--bg:#fde8e8;">
+        <div class="ico-bg-grey"></div>
+        <div class="ico-bg-circle" id="bg-housing"></div>
+        <i class="fi fi-rr-home ico-base"></i>
+        <i class="fi fi-rr-home ico-colored" id="fill-housing" style="color:#f17b79;"></i>
+        <div class="waterline" id="wl-housing"></div>
+      </div>
+      <div class="cat-name">Housing</div>
+      <div class="pp-val" id="val-housing" style="color:#f17b79;">100%</div>
+      <div class="pp-delta" id="dlt-housing"></div>
+    </div>
+
+    <div class="cell">
+      <div class="ico-wrap" style="--bg:#fde8e8;">
+        <div class="ico-bg-grey"></div>
+        <div class="ico-bg-circle" id="bg-medical"></div>
+        <i class="fi fi-rr-doctor ico-base"></i>
+        <i class="fi fi-rr-doctor ico-colored" id="fill-medical" style="color:#f17b79;"></i>
+        <div class="waterline" id="wl-medical"></div>
+      </div>
+      <div class="cat-name">Medical Care</div>
+      <div class="pp-val" id="val-medical" style="color:#f17b79;">100%</div>
+      <div class="pp-delta" id="dlt-medical"></div>
+    </div>
+
+    <div class="cell">
+      <div class="ico-wrap" style="--bg:#fde8e8;">
+        <div class="ico-bg-grey"></div>
+        <div class="ico-bg-circle" id="bg-transport"></div>
+        <i class="fi fi-rr-truck-side ico-base"></i>
+        <i class="fi fi-rr-truck-side ico-colored" id="fill-transport" style="color:#f17b79;"></i>
+        <div class="waterline" id="wl-transport"></div>
+      </div>
+      <div class="cat-name">Transportation</div>
+      <div class="pp-val" id="val-transport" style="color:#f17b79;">100%</div>
+      <div class="pp-delta" id="dlt-transport"></div>
+    </div>
+
+    <div class="cell">
+      <div class="ico-wrap" style="--bg:#fde8e8;">
+        <div class="ico-bg-grey"></div>
+        <div class="ico-bg-circle" id="bg-recreation"></div>
+        <i class="fi fi-rr-bowling-pins ico-base"></i>
+        <i class="fi fi-rr-bowling-pins ico-colored" id="fill-recreation" style="color:#f17b79;"></i>
+        <div class="waterline" id="wl-recreation"></div>
+      </div>
+      <div class="cat-name">Recreation</div>
+      <div class="pp-val" id="val-recreation" style="color:#f17b79;">100%</div>
+      <div class="pp-delta" id="dlt-recreation"></div>
+    </div>
+
+  </div>
+
+  <div class="tl-wrap">
+    <input type="range" id="tl" min="0" max="10" value="0" step="1" oninput="goTo(+this.value)">
+    <div class="tl-labels">
+      <span>2015</span><span>2016</span><span>2017</span><span>2018</span><span>2019</span>
+      <span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span>
+    </div>
+  </div>
+
+  <div class="ctrl">
+    <button class="btn primary" id="pb" onclick="tp()">&#9654; Play</button>
+    <button class="btn" onclick="dr()">&#8635; Reset</button>
+    <span class="spd-lbl">Speed</span>
+    <input type="range" min="1" max="3" value="2" step="1" style="width:70px;" oninput="setSpd(+this.value)">
+  </div>
+
+  <p class="note">
+    Icons: Flaticon Uicons · Data: U.S. &amp; Canada CPI, Bureau of Labor Statistics / Statistics Canada · 
+    Methodology: Purchasing power indexed to 2015 = 100%. Values below 100% indicate erosion of real purchasing power.
+  </p>
+
+</div>
+
+<script>
+const pp = {
+  "USA": {
+    "Food":         [100.0, 99.7, 98.8, 97.4, 95.7, 92.6, 89.2, 81.4, 77.0, 75.3, 73.3],
+    "Housing":      [100.0, 97.6, 94.8, 92.1, 89.5, 87.6, 84.8, 79.1, 74.4, 71.2, 68.7],
+    "Medical care": [100.0, 96.4, 94.0, 92.2, 89.6, 86.1, 85.1, 81.7, 81.4, 79.2, 77.0],
+    "Transportation":[100.0,102.1, 98.8, 94.5, 94.8, 98.9, 86.3, 74.7, 74.6, 73.5, 73.2],
+    "Recreation":   [100.0, 99.1, 97.8, 97.4, 96.1, 94.8, 92.6, 88.6, 85.2, 83.9, 82.2]
+  },
+  "Canada": {
+    "Food":         [100.0, 98.6, 98.5, 96.7, 93.5, 91.4, 89.2, 81.9, 76.2, 74.2, 71.9],
+    "Housing":      [100.0, 98.4, 96.8, 94.8, 92.5, 90.9, 87.5, 81.9, 77.5, 73.3, 71.2],
+    "Medical care": [100.0, 98.6, 97.0, 95.7, 94.6, 93.3, 90.9, 87.3, 82.6, 80.1, 78.1],
+    "Transportation":[100.0, 98.9, 95.2, 90.9, 89.3, 89.5, 83.6, 75.5, 74.8, 73.6, 73.4],
+    "Recreation":   [100.0, 98.3, 96.0, 94.9, 93.7, 94.6, 92.8, 88.6, 86.6, 86.2, 85.0]
+  }
+};
+const cats = ["Food","Housing","Medical care","Transportation","Recreation"];
+const keys = ["food","housing","medical","transport","recreation"];
+const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+
+let cur=0, cty='USA', playing=false, tmr=null, spd=2;
+const speeds = {1:1100,2:650,3:260};
+
+function goTo(idx) {
+  cur = idx;
+  document.getElementById('tl').value = idx;
+  document.getElementById('yr-lbl').textContent = years[idx];
+
+  cats.forEach((cat, i) => {
+    const k = keys[i];
+    const v = pp[cty][cat][idx];
+    const fillPct = Math.min(100, Math.max(0, v));
+    const clipTop = (100 - fillPct).toFixed(2);
+
+    document.getElementById('fill-' + k).style.clipPath =
+      `inset(${clipTop}% 0 0 0)`;
+
+    // sync background circle to drain in step with the icon
+    document.getElementById('bg-' + k).style.clipPath =
+      `inset(${clipTop}% 0 0 0)`;
+
+    const wl = document.getElementById('wl-' + k);
+    wl.style.top = clipTop + '%';
+
+    document.getElementById('val-' + k).textContent = v.toFixed(1) + '%';
+
+    const dEl = document.getElementById('dlt-' + k);
+    if (idx === 0) {
+      dEl.textContent = 'baseline';
+      dEl.style.color = '#C0BAB0';
+    } else {
+      const diff = (v - 100).toFixed(1);
+      dEl.textContent = (parseFloat(diff) > 0 ? '+' : '') + diff + '% vs 2015';
+      dEl.style.color = parseFloat(diff) < 0 ? '#C0554A' : '#4A8C60';
+    }
+  });
+}
+
+function setCty(c) {
+  cty = c;
+  document.getElementById('btn-usa').classList.toggle('on', c==='USA');
+  document.getElementById('btn-can').classList.toggle('on', c==='Canada');
+  goTo(cur);
+}
+
+function tp() {
+  if (playing) pause();
+  else { if (cur >= 10) goTo(0); play(); }
+}
+function play() {
+  playing = true;
+  document.getElementById('pb').innerHTML = '&#9646;&#9646; Pause';
+  tmr = setInterval(() => {
+    if (cur < 10) goTo(cur + 1);
+    else { pause(); document.getElementById('pb').innerHTML = '&#9654; Play'; }
+  }, speeds[spd]);
+}
+function pause() {
+  playing = false; clearInterval(tmr);
+  document.getElementById('pb').innerHTML = '&#9654; Play';
+}
+function dr() { pause(); goTo(0); }
+function setSpd(v) { spd = +v; if (playing) { clearInterval(tmr); play(); } }
+
+goTo(0);
+</script>
+</body>
+</html>
