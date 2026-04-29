@@ -1,0 +1,31 @@
+<style>
+    body {
+        background: white;
+    }
+    .ico-bg-grey {
+        background-color: #8B8680; /* darker grey for lost purchasing power */
+    }
+    .cbtn.on {
+        background-color: #f17b79;
+    }
+    .btn.primary {
+        background-color: #f17b79;
+    }
+    .yr {
+        color: #f17b79;
+    }
+    input[type=range] {
+        accent-color: #f17b79;
+    }
+    h1 {
+        display: none;
+    }
+    .sub {
+        display: none;
+    }
+    .waterline {
+        opacity: 1; /* increased opacity */
+        height: 3px; /* increased height for visibility */
+        background-color: white; /* brighten appearance */
+    }
+</style>
