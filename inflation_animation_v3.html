@@ -1,31 +1,39 @@
-<style>
-    body {
-        background: white;
-    }
-    .ico-bg-grey {
-        background-color: #8B8680; /* darker grey for lost purchasing power */
-    }
-    .cbtn.on {
-        background-color: #f17b79;
-    }
-    .btn.primary {
-        background-color: #f17b79;
-    }
-    .yr {
-        color: #f17b79;
-    }
-    input[type=range] {
-        accent-color: #f17b79;
-    }
-    h1 {
-        display: none;
-    }
-    .sub {
-        display: none;
-    }
-    .waterline {
-        opacity: 1; /* increased opacity */
-        height: 3px; /* increased height for visibility */
-        background-color: white; /* brighten appearance */
-    }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title hidden>Inflation Animation</title>
+    <style>
+        body {
+            background-color: white;
+            color: #8B8680; /* darker grey for lost purchasing power */
+        }
+        .coral-theme {
+            background-color: #f17b79; /* coral theme color */
+        }
+        .waterline {
+            height: 4px;
+            opacity: 1;
+            background-color: #f17b79; /* coral for visibility */
+        }
+        button, .control {
+            background-color: #f17b79; /* themed button color */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="coral-theme">
+        <div class="waterline"></div>
+        <p class="control">Control Button</p>
+        <button>Click Me!</button>
+    </div>
+    <script>
+        // Your JavaScript code can go here
+    </script>
+</body>
+</html>
