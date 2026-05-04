@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zine 01 — Your Data Has a Life Without You</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink:   #18110e;
+  --cream: #f5f0e2;
+  --paper: #ece8d8;
+  --blue:  #2b6ca8;
+  --red:   #b83222;
+  --gold:  #b87a08;
+  --ph:    'Patrick Hand', cursive;
+}
+body {
+  background: #c2bba8;
+  font-family: var(--ph);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.fold-guide {
+  width: 1120px;
+  background: var(--cream);
+  border: 2.5px solid var(--ink);
+  padding: 0.8rem 1.5rem;
+  display: grid;
+  grid-template-columns: auto repeat(5, 1fr);
+  gap: 0.4rem 1rem;
+  align-items: center;
+}
+.fold-title {
+  font-family: var(--ph);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.fold-step {
+  font-family: var(--ph);
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.fold-step .cut { color: var(--red); font-weight: 700; }
+.fold-step .num { color: var(--blue); font-size: 1.1rem; font-weight: 700; }
+
+.sheet-label {
+  width: 1120px;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--ph);
+  font-size: 1rem;
+  padding: 0.45rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+.sheet-label span { opacity: 0.5; font-size: 0.85rem; }
+
+/* A4 landscape: 1120 x 794, panels 280 x 397 */
+.sheet {
+  width: 1120px;
+  height: 794px;
+  display: grid;
+  grid-template-columns: repeat(4, 280px);
+  grid-template-rows: repeat(2, 397px);
+  border: 2.5px solid #888;
+  position: relative;
+  background: var(--cream);
+}
+.vfold {
+  position: absolute;
+  top: 0; height: 100%; width: 1px;
+  background: repeating-linear-gradient(to bottom,#aaa 0,#aaa 4px,transparent 4px,transparent 9px);
+  z-index: 30; pointer-events: none;
+}
+.vf1{left:280px;} .vf2{left:560px;} .vf3{left:840px;}
+.cut-line {
+  position: absolute;
+  left: 0; width: 560px; top: 397px; height: 0;
+  border-top: 2.5px dashed var(--red);
+  z-index: 30; pointer-events: none;
+}
+.cut-label {
+  position: absolute;
+  left: 200px; top: 382px;
+  font-family: var(--ph);
+  font-size: 0.72rem; color: var(--red);
+  background: var(--cream); padding: 0 4px;
+  z-index: 31; pointer-events: none;
+}
+
+.p {
+  border: 1px solid #c0b8a2;
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--ph);
+}
+.flip { transform: rotate(180deg); }
+.pn {
+  position: absolute;
+  bottom: 5px; right: 7px;
+  font-size: 0.65rem; color: rgba(0,0,0,0.2);
+  font-family: var(--ph); z-index: 5;
+}
+.flip .pn { transform: rotate(180deg); bottom: auto; top: 5px; }
+
+/* reusable type sizes */
+.h1 { font-size: 2.0rem; line-height: 1.0; color: var(--ink); font-family: var(--ph); }
+.h2 { font-size: 1.45rem; line-height: 1.05; color: var(--ink); font-family: var(--ph); }
+.body { font-size: 1.0rem; line-height: 1.55; color: var(--ink); font-family: var(--ph); }
+.small { font-size: 0.88rem; line-height: 1.45; color: var(--ink); font-family: var(--ph); }
+.micro { font-size: 0.78rem; line-height: 1.4; color: #555; font-family: var(--ph); }
+.rule { border-bottom: 2.5px solid var(--ink); padding-bottom: 0.25rem; margin-bottom: 0.4rem; }
+
+/* ===== P1 COVER ===== */
+.p1 { background: var(--ink); padding: 1rem 1.1rem 0.85rem; justify-content: space-between; }
+.p1 .top-bar { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--blue); border-bottom: 1.5px solid rgba(255,255,255,0.15); padding-bottom: 0.3rem; }
+.p1 .cover-title { font-size: 1.75rem; line-height: 1.2; color: var(--cream); text-align: center; flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.2rem 0; }
+.p1 .cover-title span { color: #6ab4f0; }
+.p1 .bot-bar { font-size: 0.82rem; color: rgba(245,240,226,0.4); text-align: center; border-top: 1.5px solid rgba(255,255,255,0.1); padding-top: 0.3rem; }
+
+/* ===== P2 ===== */
+.p2 { padding: 0.85rem 1rem; gap: 0.45rem; }
+.p2 .sig-item { display: flex; gap: 0.4rem; align-items: flex-start; font-size: 1.0rem; line-height: 1.4; color: var(--ink); padding: 0.2rem 0; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+.p2 .dot { flex-shrink: 0; margin-top: 4px; }
+.p2 .stat-box { background: var(--blue); color: white; padding: 0.5rem 0.7rem; margin-top: auto; }
+.p2 .stat-box .num { font-size: 1.8rem; line-height: 1.0; display: block; }
+.p2 .stat-box .label { font-size: 0.82rem; opacity: 0.9; }
+
+/* ===== P3 ===== */
+.p3 { padding: 0.85rem 0.9rem; gap: 0.45rem; }
+
+/* ===== P4 ===== */
+.p4 { padding: 0.85rem 1rem; gap: 0.4rem; background: var(--paper); }
+.p4 .buyer { display: flex; gap: 0.5rem; align-items: center; font-size: 1.0rem; color: var(--ink); padding: 0.25rem 0; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+.p4 .buyer-name { font-size: 1.0rem; min-width: 90px; }
+.p4 .buyer-desc { font-size: 0.85rem; color: #666; }
+
+/* ===== P5 ===== */
+.p5 { padding: 0.85rem 1rem; gap: 0.4rem; }
+.p5 .file-card { border: 2px solid var(--ink); flex: 1; padding: 0.55rem 0.7rem; display: flex; flex-direction: column; gap: 0; }
+.p5 .file-tag { font-size: 0.72rem; color: var(--blue); border-bottom: 1px solid var(--ink); padding-bottom: 0.25rem; margin-bottom: 0.2rem; }
+.p5 .file-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.92rem; color: var(--ink); padding: 0.22rem 0; border-bottom: 1px dotted rgba(0,0,0,0.12); }
+.p5 .inf { color: var(--red); font-size: 0.88rem; }
+.p5 .redact { display: inline-block; background: var(--ink); color: transparent; border-radius: 2px; padding: 0 0.3rem; font-size: 0.85rem; user-select: none; vertical-align: middle; }
+.p5 .conf-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--ink); }
+.p5 .conf-bar { flex: 1; height: 7px; background: #ddd; }
+.p5 .conf-fill { height: 100%; width: 87%; background: var(--blue); }
+.p5 .conf-pct { font-size: 1.1rem; color: var(--blue); flex-shrink: 0; }
+.p5 .note { font-size: 0.75rem; color: #666; line-height: 1.35; }
+
+/* ===== P6 ===== */
+.p6 { padding: 0.85rem 1rem; gap: 0.45rem; background: var(--paper); }
+.p6 .fol { display: flex; gap: 0.4rem; align-items: flex-start; font-size: 1.0rem; color: var(--ink); padding: 0.22rem 0; border-bottom: 1px dashed rgba(0,0,0,0.12); line-height: 1.4; }
+.p6 .reminder { font-size: 0.9rem; color: var(--red); font-weight: 700; margin-top: auto; }
+
+/* ===== P7 ===== */
+.p7 { padding: 0.85rem 1rem; gap: 0.4rem; }
+.p7 .tip { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 1.0rem; line-height: 1.4; color: var(--ink); padding: 0.25rem 0; border-bottom: 1px dashed rgba(0,0,0,0.12); }
+.p7 .tip-n { font-size: 1.4rem; color: var(--blue); line-height: 1; flex-shrink: 0; width: 22px; }
+.p7 .tip b { display: block; font-size: 1.0rem; }
+.p7 .tip span { font-size: 0.88rem; color: #555; }
+.p7 .coda { font-size: 0.88rem; color: var(--gold); margin-top: auto; }
+
+/* ===== P8 ===== */
+.p8 { background: var(--blue); padding: 0.9rem 1.1rem; gap: 0.5rem; }
+.p8 .back-tag { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+.p8 .big-claim { font-size: 2.0rem; line-height: 1.0; color: #fff; text-align: center; }
+.p8 .sub { font-size: 0.95rem; color: rgba(255,255,255,0.9); line-height: 1.5; text-align: center; }
+.p8 .pl-box { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.45); padding: 0.55rem 0.75rem; text-align: center; margin-top: auto; }
+.p8 .pl-name { font-size: 1.15rem; color: #fff; display: block; }
+.p8 .pl-desc { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.45; }
+
+.bottom-note { width: 1120px; background: var(--cream); border: 2.5px solid var(--ink); padding: 0.9rem 1.5rem; font-family: var(--ph); font-size: 1.0rem; color: var(--ink); line-height: 1.6; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="fold-guide" role="note" aria-label="Folding instructions">
+  <div class="fold-title">How to fold:</div>
+  <div class="fold-step"><span class="num">1</span> Print Side A. Flip. Print Side B on the back.</div>
+  <div class="fold-step"><span class="num">2</span> Fold in half, left to right.</div>
+  <div class="fold-step"><span class="num">3</span> Fold in half again. Then once more.</div>
+  <div class="fold-step"><span class="num">4</span> Unfold last two folds. <span class="cut">Cut the red line, halfway only.</span></div>
+  <div class="fold-step"><span class="num">5</span> Refold, push center open, flatten into booklet.</div>
+</div>
+
+<div class="sheet-label" role="note">
+  <b>Side A — print first</b>
+  <span>Bottom row prints upside down. That is correct.</span>
+  <span>Zine 01 · Your Data Has a Life Without You · PromptLab · 2026</span>
+</div>
+
+<div class="sheet" role="img" aria-label="Print layout for Zine 01, 8-panel mini zine">
+  <div class="vfold vf1" aria-hidden="true"></div>
+  <div class="vfold vf2" aria-hidden="true"></div>
+  <div class="vfold vf3" aria-hidden="true"></div>
+  <div class="cut-line" aria-hidden="true"></div>
+  <div class="cut-label" aria-hidden="true">cut here only</div>
+
+  <!-- ===== TOP ROW: P5 P4 P3 P2 ===== -->
+
+  <!-- P5: What They Build -->
+  <div class="p p5" aria-label="Page 5, What they build">
+    <div class="pn">5</div>
+    <div class="h2 rule">What they build.</div>
+    <div class="file-card" role="group" aria-label="Example data profile card">
+      <div class="file-tag">PROFILE / subject 0471</div>
+      <div class="file-row"><span>Name</span><span>J. <span class="redact">XXXXXXX</span></span></div>
+      <div class="file-row"><span>Age</span><span>22 to 29</span></div>
+      <div class="file-row"><span>Location</span><span><span class="redact">XXXXX</span> NC</span></div>
+      <div class="file-row"><span>Politics</span><span class="inf">INFERRED</span></div>
+      <div class="file-row"><span>Health</span><span class="inf">INFERRED</span></div>
+      <div class="file-row"><span>Finances</span><span class="inf">INFERRED</span></div>
+      <div class="conf-row" role="meter" aria-label="87 percent confidence score">
+        <span style="font-size:0.78rem;color:var(--ink);">confidence</span>
+        <div class="conf-bar"><div class="conf-fill"></div></div>
+        <span class="conf-pct">87%</span>
+      </div>
+    </div>
+    <div class="note">You never shared those red fields. They are predictions.</div>
+  </div>
+
+  <!-- P4: What Gets Collected -->
+  <div class="p p4" aria-label="Page 4, What data gets collected">
+    <div class="pn">4</div>
+    <div class="h2 rule">What gets collected.</div>
+    <div role="list" style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+      <div class="buyer" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="none"><circle cx="9" cy="7" r="3" stroke="var(--ink)" stroke-width="1.5"/><path d="M3 16c0-4 12-4 12 0" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="7" r="6" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 2"/></svg>
+        <span class="buyer-name">Location</span><span class="buyer-desc">where you are, always</span>
+      </div>
+      <div class="buyer" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="none"><circle cx="9" cy="9" r="6" stroke="var(--ink)" stroke-width="1.5"/><line x1="9" y1="3" x2="9" y2="9" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="9" x2="13" y2="12" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="buyer-name">Timestamps</span><span class="buyer-desc">when you're awake, asleep</span>
+      </div>
+      <div class="buyer" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="var(--ink)" stroke-width="1.5"/><line x1="2" y1="7" x2="16" y2="7" stroke="var(--ink)" stroke-width="1.5"/><line x1="6" y1="11" x2="10" y2="11" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="buyer-name">Purchases</span><span class="buyer-desc">every card transaction</span>
+      </div>
+      <div class="buyer" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="none"><circle cx="9" cy="9" r="4" stroke="var(--ink)" stroke-width="1.5"/><line x1="13" y1="13" x2="16" y2="16" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="buyer-name">Searches</span><span class="buyer-desc">every query, every topic</span>
+      </div>
+      <div class="buyer" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="none"><rect x="3" y="2" width="12" height="14" rx="2" stroke="var(--ink)" stroke-width="1.5"/><line x1="6" y1="6" x2="12" y2="6" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round"/><line x1="6" y1="9" x2="12" y2="9" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round"/><line x1="6" y1="12" x2="10" y2="12" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <span class="buyer-name">App usage</span><span class="buyer-desc">time, frequency, patterns</span>
+      </div>
+      <div class="buyer" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="none"><rect x="2" y="5" width="14" height="10" rx="2" stroke="var(--ink)" stroke-width="1.5"/><polyline points="2,8 9,12 16,8" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="buyer-name">Contacts</span><span class="buyer-desc">your social network</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3: Who Collects It? -->
+  <div class="p p3" aria-label="Page 3, Who collects your data">
+    <div class="pn">3</div>
+    <div class="h2 rule">Who collects it?</div>
+    <svg width="250" height="280" viewBox="0 0 250 280" aria-label="Flow diagram: you to data broker to buyers" style="display:block;margin:0 auto;">
+      <!-- YOU -->
+      <rect x="75" y="8" width="100" height="34" rx="3" stroke="var(--ink)" stroke-width="2.5" fill="var(--cream)"/>
+      <text x="125" y="30" font-family="Patrick Hand" font-size="17" fill="var(--ink)" text-anchor="middle" font-weight="bold">YOU</text>
+      <!-- arrow down -->
+      <line x1="125" y1="42" x2="125" y2="60" stroke="var(--ink)" stroke-width="2" stroke-dasharray="4 3"/>
+      <polygon points="119,57 125,67 131,57" fill="var(--ink)"/>
+      <text x="130" y="57" font-family="Patrick Hand" font-size="11" fill="var(--ink)">click, scroll, search</text>
+      <!-- BROKER -->
+      <rect x="40" y="68" width="170" height="34" rx="3" stroke="var(--blue)" stroke-width="2.5" fill="#deeaf8"/>
+      <text x="125" y="90" font-family="Patrick Hand" font-size="16" fill="var(--blue)" text-anchor="middle" font-weight="bold">DATA BROKER</text>
+      <!-- arrow down -->
+      <line x1="125" y1="102" x2="125" y2="118" stroke="var(--ink)" stroke-width="2" stroke-dasharray="4 3"/>
+      <polygon points="119,115 125,125 131,115" fill="var(--ink)"/>
+      <text x="130" y="115" font-family="Patrick Hand" font-size="11" fill="var(--ink)">sold to</text>
+      <!-- BUYERS 2x2 -->
+      <rect x="6"   y="126" width="112" height="28" rx="3" stroke="var(--ink)" stroke-width="1.8" fill="var(--cream)"/>
+      <text x="62"  y="145" font-family="Patrick Hand" font-size="13" fill="var(--ink)" text-anchor="middle">employers</text>
+      <rect x="132" y="126" width="112" height="28" rx="3" stroke="var(--ink)" stroke-width="1.8" fill="var(--cream)"/>
+      <text x="188" y="145" font-family="Patrick Hand" font-size="13" fill="var(--ink)" text-anchor="middle">insurers</text>
+      <rect x="6"   y="163" width="112" height="28" rx="3" stroke="var(--ink)" stroke-width="1.8" fill="var(--cream)"/>
+      <text x="62"  y="182" font-family="Patrick Hand" font-size="13" fill="var(--ink)" text-anchor="middle">ad networks</text>
+      <rect x="132" y="163" width="112" height="28" rx="3" stroke="var(--ink)" stroke-width="1.8" fill="var(--cream)"/>
+      <text x="188" y="182" font-family="Patrick Hand" font-size="13" fill="var(--ink)" text-anchor="middle">campaigns</text>
+      <!-- lines broker to buyers -->
+      <line x1="85"  y1="102" x2="62"  y2="126" stroke="var(--ink)" stroke-width="1.3"/>
+      <line x1="165" y1="102" x2="188" y2="126" stroke="var(--ink)" stroke-width="1.3"/>
+      <!-- stat -->
+      <text x="125" y="218" font-family="Patrick Hand" font-size="12.5" fill="var(--blue)" text-anchor="middle">4,000+ brokers in the US.</text>
+      <text x="125" y="234" font-family="Patrick Hand" font-size="12.5" fill="var(--blue)" text-anchor="middle">Mostly unregulated.*</text>
+      <text x="125" y="256" font-family="Patrick Hand" font-size="10.5" fill="#888" text-anchor="middle">* World Privacy Forum / FTC reports</text>
+    </svg>
+  </div>
+
+  <!-- P2: The Moment You Click -->
+  <div class="p p2" aria-label="Page 2, The moment you click">
+    <div class="pn">2</div>
+    <div class="h2 rule">The moment you click.</div>
+    <svg width="248" height="52" viewBox="0 0 248 52" aria-hidden="true" style="display:block;margin:2px auto;">
+      <polygon points="30,10 30,40 38,33 44,46 50,43 44,30 54,30" stroke="var(--ink)" stroke-width="2" fill="var(--cream)"/>
+      <path d="M62 28 C72 16,82 38,92 24" stroke="var(--blue)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M96 28 C112 10,128 44,144 20" stroke="var(--blue)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M148 28 C168 8,190 46,212 16" stroke="var(--blue)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="62" y="46" font-family="Patrick Hand" font-size="11.5" fill="var(--blue)">signal fires instantly</text>
+    </svg>
+    <div role="list">
+      <div class="sig-item" role="listitem">
+        <svg class="dot" width="13" height="13" viewBox="0 0 13 13" aria-hidden="true" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="var(--ink)" stroke-width="1.5"/><circle cx="6.5" cy="6.5" r="2" fill="var(--ink)"/></svg>
+        <span>When you search online, your device ID and location are logged automatically.</span>
+      </div>
+      <div class="sig-item" role="listitem">
+        <svg class="dot" width="13" height="13" viewBox="0 0 13 13" aria-hidden="true" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="var(--ink)" stroke-width="1.5"/><circle cx="6.5" cy="6.5" r="2" fill="var(--ink)"/></svg>
+        <span>Advertisers bid on your information in an automated auction that runs before the page even loads.</span>
+      </div>
+      <div class="sig-item" role="listitem">
+        <svg class="dot" width="13" height="13" viewBox="0 0 13 13" aria-hidden="true" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="var(--ink)" stroke-width="1.5"/><circle cx="6.5" cy="6.5" r="2" fill="var(--ink)"/></svg>
+        <span>Data brokers purchase it and build a detailed profile of you. You are never notified.</span>
+      </div>
+    </div>
+    <div class="stat-box" role="note">
+      <span class="num">100ms</span>
+      <span class="label">to auction your data after you load a page</span>
+    </div>
+  </div>
+
+  <!-- ===== BOTTOM ROW (flipped): P6 P7 P8 P1 ===== -->
+
+  <!-- P6: It Follows You -->
+  <div class="p p6 flip" aria-label="Page 6, It follows you everywhere">
+    <div class="pn">6</div>
+    <div class="h2 rule">It follows you.</div>
+    <svg width="248" height="68" viewBox="0 0 248 68" aria-hidden="true" style="display:block;margin:2px auto;">
+      <!-- walking figure -->
+      <circle cx="46" cy="14" r="9" stroke="var(--ink)" stroke-width="2" fill="var(--cream)"/>
+      <line x1="46" y1="23" x2="46" y2="44" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      <line x1="46" y1="32" x2="37" y2="42" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      <line x1="46" y1="32" x2="55" y2="42" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      <line x1="46" y1="44" x2="39" y2="56" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      <line x1="46" y1="44" x2="53" y2="56" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      <!-- data blob -->
+      <ellipse cx="140" cy="38" rx="88" ry="22" stroke="var(--blue)" stroke-width="1.8" fill="rgba(43,108,168,0.08)" stroke-dasharray="5 3"/>
+      <text x="140" y="43" font-family="Patrick Hand" font-size="13.5" fill="var(--blue)" text-anchor="middle">your data profile</text>
+      <!-- connecting arrow -->
+      <path d="M60 32 C80 28,90 36,100 34" stroke="var(--blue)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <polygon points="96,30 104,34 97,38" fill="var(--blue)"/>
+    </svg>
+    <div role="list">
+      <div class="fol" role="listitem">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none"><rect x="1" y="5" width="14" height="9" rx="1" stroke="var(--ink)" stroke-width="1.5"/><path d="M5 5V4a3 3 0 016 0v1" stroke="var(--ink)" stroke-width="1.5"/></svg>
+        <span>Hiring decisions, before your interview</span>
+      </div>
+      <div class="fol" role="listitem">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none"><path d="M8 1l1.3 3.9H14l-3.2 2.3 1.3 3.9L8 9l-4.1 2.1 1.3-3.9L2 4.9h4.7z" stroke="var(--ink)" stroke-width="1.2"/></svg>
+        <span>Insurance rates, based on your habits</span>
+      </div>
+      <div class="fol" role="listitem">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none"><path d="M2 8h12M11 4l4 4-4 4" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Loan approvals, beyond your credit score</span>
+      </div>
+    </div>
+    <div class="reminder">This is not just about ads.</div>
+  </div>
+
+  <!-- P7: Slow It Down -->
+  <div class="p p7 flip" aria-label="Page 7, What you can do">
+    <div class="pn">7</div>
+    <div class="h2 rule">Slow it down.</div>
+    <div role="list">
+      <div class="tip" role="listitem">
+        <span class="tip-n">1</span>
+        <div>
+          <b>Audit app permissions.</b>
+          <span>In your device settings, turn off location access and ad tracking for apps that do not need them.</span>
+        </div>
+      </div>
+      <div class="tip" role="listitem">
+        <span class="tip-n">2</span>
+        <div>
+          <b>Use email aliases.</b>
+          <span>Using an alias or temporary email can stop companies from linking your different accounts back to your real identity.</span>
+        </div>
+      </div>
+      <div class="tip" role="listitem">
+        <span class="tip-n">3</span>
+        <div>
+          <b>Choose data-secure apps.</b>
+          <span>Look for apps and websites that are transparent about how they store and use your data.</span>
+        </div>
+      </div>
+    </div>
+    <div class="coda">Every layer you add makes you less profitable as a data source.</div>
+  </div>
+
+  <!-- P8: PromptLab -->
+  <div class="p p8 flip" aria-label="Page 8, PromptLab privacy promise">
+    <div class="pn">8</div>
+    <div class="back-tag">Some good news.</div>
+    <svg width="64" height="58" viewBox="0 0 64 58" aria-hidden="true" style="display:block;margin:0 auto;">
+      <path d="M32 4 L56 16 L56 34 C56 46,45 54,32 58 C19 54,8 46,8 34 L8 16 Z" stroke="white" stroke-width="2.5" fill="rgba(255,255,255,0.15)"/>
+      <path d="M22 30 l7 7 13-13" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <div class="big-claim">Your data<br>stays yours.</div>
+    <div class="sub">Not sold. Not shared. Not used to train external models.</div>
+    <div class="pl-box" role="note">
+      <span class="pl-name">PromptLab</span>
+      <div class="pl-desc">A secure AI workspace for UNC Chapel Hill affiliates. Log in with your Onyen.</div>
+      <div style="font-size:0.8rem;color:rgba(255,255,255,0.9);margin-top:0.35rem;word-break:break-all;">promptlab.lib.unc.edu</div>
+    </div>
+  </div>
+
+  <!-- P1: COVER — not flipped so it reads correctly in preview -->
+  <div class="p p1" aria-label="Cover: Your Data Has a Life Without You">
+    <div class="pn">1</div>
+    <div class="top-bar">
+      <span>Issue 01</span>
+      <span>PromptLab &amp; Data Privacy</span>
+    </div>
+
+    <!-- NEW ICON: bigger magnifying glass over a silhouette, no labels -->
+    <svg width="248" height="108" viewBox="0 0 248 108" aria-label="Illustration of a magnifying glass over a person silhouette" style="display:block;margin:0.1rem auto;flex-shrink:0;">
+      <!-- person silhouette -->
+      <circle cx="112" cy="38" r="16" stroke="rgba(106,180,240,0.75)" stroke-width="2" fill="rgba(106,180,240,0.15)"/>
+      <path d="M84 82 C84 62,140 62,140 82" stroke="rgba(106,180,240,0.75)" stroke-width="2" fill="rgba(106,180,240,0.1)"/>
+      <!-- data lines inside body -->
+      <line x1="94" y1="68" x2="130" y2="68" stroke="rgba(106,180,240,0.45)" stroke-width="1.2" stroke-dasharray="3 2"/>
+      <line x1="98" y1="75" x2="126" y2="75" stroke="rgba(106,180,240,0.45)" stroke-width="1.2" stroke-dasharray="3 2"/>
+      <!-- magnifying glass circle -->
+      <circle cx="108" cy="55" r="50" stroke="white" stroke-width="3.5" fill="none"/>
+      <!-- magnifying glass handle -->
+      <line x1="148" y1="95" x2="176" y2="107" stroke="white" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+
+    <div class="cover-title"><div>YOUR DATA<br>HAS A LIFE<br><span>WITHOUT YOU.</span></div></div>
+    <div class="bot-bar">Issue 01 &middot; Library AI Studio &middot; 2026</div>
+  </div>
+
+</div>
+
+<div class="bottom-note">
+  <span style="font-size:1.1rem;font-weight:700;color:var(--blue);">Side A printed? Now print Side B.</span><br>
+  Flip the sheet horizontally, print again. Cut the red dashed line halfway across the center fold. Fold hotdog style, push the slit open, flatten into your 8-page booklet.
+</div>
+
+</body>
+</html>
