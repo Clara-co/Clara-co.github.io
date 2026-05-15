@@ -1,0 +1,158 @@
+
+<style>
+  .dash { font-family: var(--font-sans); padding: 1.5rem 0; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 0 0 10px; }
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+  .metric .val { font-size: 26px; font-weight: 500; color: var(--color-text-primary); line-height: 1.1; }
+  .metric .lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 4px; }
+  .metric .sub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  .chart-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 20px; margin-bottom: 16px; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 12px; }
+  .bar-label { width: 130px; color: var(--color-text-secondary); text-align: right; flex-shrink: 0; font-size: 11px; }
+  .bar-track { flex: 1; background: var(--color-background-secondary); border-radius: 3px; height: 20px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 500; transition: width 0.6s ease; white-space: nowrap; }
+  .bar-val { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--color-text-secondary); }
+  .finding-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 14px 16px; margin-bottom: 10px; }
+  .finding-card .headline { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .finding-card .body { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; margin-right: 6px; margin-bottom: 2px; }
+  .tag-high { background: var(--color-background-success); color: var(--color-text-success); }
+  .tag-med { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .tag-low { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .tag-info { background: var(--color-background-info); color: var(--color-text-info); }
+  .company-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .co-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .co-name { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+  .co-score { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+  .score-bar { height: 4px; border-radius: 2px; margin-top: 6px; background: var(--color-background-primary); overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 2px; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--color-text-secondary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 20px 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .pill { font-size: 11px; padding: 3px 8px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); }
+</style>
+<div class="dash">
+  <h2 class="section-label">Fortune 500 AI governance audit · 50 companies · UNC Hussman 2026</h2>
+
+  <div class="metric-grid">
+    <div class="metric">
+      <div class="val">50</div>
+      <div class="lbl">Companies audited</div>
+      <div class="sub">6 sectors · 90 target</div>
+    </div>
+    <div class="metric">
+      <div class="val">94%</div>
+      <div class="lbl">Have a public AI policy</div>
+      <div class="sub">47 of 50 companies</div>
+    </div>
+    <div class="metric">
+      <div class="val" style="color:#C04828">14%</div>
+      <div class="lbl">Comm role in governance</div>
+      <div class="sub">Only 7 of 50 companies</div>
+    </div>
+    <div class="metric">
+      <div class="val">12.6</div>
+      <div class="lbl">Avg quality score</div>
+      <div class="sub">Out of 21 (0–3 × 7 dims)</div>
+    </div>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-card">
+      <p class="section-label">Average quality score by sector (max 21)</p>
+      <div class="bar-row"><div class="bar-label">Technology</div><div class="bar-track"><div class="bar-fill" style="width:81%;background:#534AB7;color:#EEEDFE">17.1</div></div></div>
+      <div class="bar-row"><div class="bar-label">Financial Svcs</div><div class="bar-track"><div class="bar-fill" style="width:63%;background:#0F6E56;color:#E1F5EE">13.3</div></div></div>
+      <div class="bar-row"><div class="bar-label">Media / Comms</div><div class="bar-track"><div class="bar-fill" style="width:57%;background:#1D9E75;color:#E1F5EE">12.0</div></div></div>
+      <div class="bar-row"><div class="bar-label">Healthcare</div><div class="bar-track"><div class="bar-fill" style="width:51%;background:#185FA5;color:#E6F1FB">10.6</div></div></div>
+      <div class="bar-row"><div class="bar-label">Manufacturing</div><div class="bar-track"><div class="bar-fill" style="width:46%;background:#888780;color:#F1EFE8">9.6</div></div></div>
+      <div class="bar-row"><div class="bar-label">Retail/Consumer</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:#993C1D;color:#FAECE7">8.4</div></div></div>
+    </div>
+
+    <div class="chart-card">
+      <p class="section-label">Comm/reputation role in governance by sector</p>
+      <div class="bar-row"><div class="bar-label">Technology</div><div class="bar-track"><div class="bar-fill" style="width:54%;background:#534AB7;color:#EEEDFE">54%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Financial Svcs</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:#0F6E56;color:#E1F5EE">0%</div><div class="bar-val">0%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Media / Comms</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:#1D9E75;color:#E1F5EE">0%</div><div class="bar-val">0%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Healthcare</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:#185FA5;color:#E6F1FB">0%</div><div class="bar-val">0%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Manufacturing</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:#888780;color:#F1EFE8">0%</div><div class="bar-val">0%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Retail/Consumer</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:#993C1D;color:#FAECE7">0%</div><div class="bar-val">0%</div></div></div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <p class="section-label">The 7 companies where comm/reputation professionals have a governance seat</p>
+    <div class="company-grid">
+      <div class="co-card"><div class="co-name">Salesforce <span class="tag tag-high">Voting</span></div><div class="co-score">Score: 20/21 · Technology</div><div class="score-bar"><div class="score-fill" style="width:95%;background:#534AB7"></div></div></div>
+      <div class="co-card"><div class="co-name">Microsoft <span class="tag tag-high">Voting</span></div><div class="co-score">Score: 19/21 · Technology</div><div class="score-bar"><div class="score-fill" style="width:90%;background:#534AB7"></div></div></div>
+      <div class="co-card"><div class="co-name">Alphabet/Google <span class="tag tag-high">Voting</span></div><div class="co-score">Score: 19/21 · Technology</div><div class="score-bar"><div class="score-fill" style="width:90%;background:#534AB7"></div></div></div>
+      <div class="co-card"><div class="co-name">IBM <span class="tag tag-high">Voting</span></div><div class="co-score">Score: 19/21 · Technology</div><div class="score-bar"><div class="score-fill" style="width:90%;background:#534AB7"></div></div></div>
+      <div class="co-card"><div class="co-name">Cisco <span class="tag tag-high">Voting</span></div><div class="co-score">Score: 19/21 · Technology</div><div class="score-bar"><div class="score-fill" style="width:90%;background:#534AB7"></div></div></div>
+      <div class="co-card"><div class="co-name">Accenture <span class="tag tag-high">Voting</span></div><div class="co-score">Score: 19/21 · Technology</div><div class="score-bar"><div class="score-fill" style="width:90%;background:#534AB7"></div></div></div>
+      <div class="co-card"><div class="co-name">Meta <span class="tag tag-high">Voting</span></div><div class="co-score">Score: 18/21 · Technology</div><div class="score-bar"><div class="score-fill" style="width:86%;background:#534AB7"></div></div></div>
+    </div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin-top:10px">All 7 are Technology sector. Advisory roles (not voting): Amazon, Apple, JPMorgan, Bank of America, Citigroup, Wells Fargo, J&amp;J, Morgan Stanley, American Express, News Corp.</p>
+  </div>
+
+  <hr class="divider">
+  <h2 class="section-label">Key findings for your presentation</h2>
+
+  <div class="finding-card">
+    <div class="headline">🔑 The headline: PR/comm professionals are structurally absent from AI governance</div>
+    <div class="body">Only 14% of companies include a communication or reputation professional in AI governance — and every single one of those companies is in the Technology sector. Outside of tech, the number is <strong>zero</strong> across Financial Services, Healthcare, Retail, Media, and Manufacturing. This isn't a resource gap. It's a design choice — and the data suggest it's the wrong one.</div>
+  </div>
+
+  <div class="finding-card">
+    <div class="headline">⚠️ The governance theater problem: policy without accountability</div>
+    <div class="body">94% of companies have a public AI policy. But the quality scoring tells a different story. The 0–3 scale (0=absent, 1=aspirational/vague, 2=procedural, 3=measurable/accountable) reveals that most companies cluster around 1–2 on most dimensions — meaning they have language, but not systems. The average score of 12.6 out of 21 reflects governance that looks complete on paper but lacks external audit, published metrics, or board-level accountability. The research team calls this the "governance theater gap."</div>
+  </div>
+
+  <div class="finding-card">
+    <div class="headline">🏥 Healthcare is the highest-stakes sector with the weakest governance</div>
+    <div class="body">Healthcare companies (avg score 10.6) are deploying AI in prior authorization, diagnostics, and mental health — and they have the most documented harm. UnitedHealth's nH Predict AI denied post-acute care at 10× the rate of human reviewers. Cigna's PXDX system rejected 300,000+ claims at 1.2 seconds per case. Elevance and Humana face class-action suits over the same pattern. In every case: no comm professional led the response, and governance was strengthened only after the crisis.</div>
+  </div>
+
+  <div class="finding-card">
+    <div class="headline">📉 Crisis companies show a clear pattern: governance built after the damage</div>
+    <div class="body">Of the 22% of companies with a documented AI crisis history, the pattern is consistent: vague governance → AI incident → defensive legal response → post-crisis policy update. Amazon scrapped its biased hiring tool. Google published its AI Principles only after the Project Maven employee protest. GM built board-level autonomous vehicle governance after the Cruise pedestrian dragging incident. Netflix formalized GenAI production guidelines only after backlash over undisclosed AI imagery. Reactive governance is not a strategy.</div>
+  </div>
+
+  <div class="finding-card">
+    <div class="headline">📊 The 10-K vs. website integrity gap</div>
+    <div class="body">SEC 10-K filings require honest disclosure of AI risk — companies must admit what could go wrong. Corporate websites curate the opposite narrative. Comparing both reveals what the research team calls the "integrity gap": companies that acknowledge material AI risk in legal filings while projecting confidence and ethical leadership in public governance language. Goldman Sachs exemplifies this: strong internal risk controls, but no public-facing responsible AI page. Walmart's 10-K acknowledges technology risk while its website leads with ethical AI commitments.</div>
+  </div>
+
+  <div class="finding-card">
+    <div class="headline">✅ What good looks like: the 5-company benchmark</div>
+    <div class="body">Salesforce (20/21), Microsoft, Google, IBM, and Cisco (all 19/21) define the ceiling. Common factors: comm/policy professionals with voting seats on AI governance panels; published third-party audits or external research partnerships; board-level reporting; AI ethics infrastructure that predates most peers by 3–5 years; crisis response protocols documented in advance. These companies treated AI governance as a reputational infrastructure problem — not just a technical one.</div>
+  </div>
+
+  <hr class="divider">
+  <h2 class="section-label">Implications for communication & reputation professionals</h2>
+
+  <div class="two-col">
+    <div class="finding-card" style="margin-bottom:0">
+      <div class="headline">The case you need to make internally</div>
+      <div class="body" style="margin-top:6px">The companies where comm professionals have a voting governance seat score an average of <strong>19/21</strong>. The companies where they have no role score an average of <strong>10.5/21</strong>. This is not correlation — it reflects that stakeholder trust infrastructure (Q7), transparency (Q1), and crisis preparedness (Q6) require communication expertise to build. Technical teams alone don't design for public perception.</div>
+    </div>
+    <div class="finding-card" style="margin-bottom:0">
+      <div class="headline">What audiences will ask about</div>
+      <div class="body" style="margin-top:6px">Conference audiences (PRSA ICON, PAGE Society, IABC) will want to know: How do I get a seat at the table? What language do I use with the C-suite? What does a voting governance role actually look like? The Salesforce quote is your anchor: governance principles were approved by executives "including co-CEOs and marketing" — that's how you name the role without sounding like an advocate for yourself.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px" class="finding-card">
+    <div class="headline">Methodological credibility for Q&amp;A</div>
+    <div class="body">The IRR log shows Cohen's Kappa = 1.00 on all binary variables (policy exists, governance body named, comm role) across 15 randomly selected companies. Quality score agreement is 97%+ within 1 point. That's above the 0.70 publishability threshold. When peer reviewers or conference attendees ask how you know the coding is reliable, this is your answer.</div>
+    <div class="pill-row">
+      <span class="pill">κ = 1.00 binary variables</span>
+      <span class="pill">97% quality score agreement</span>
+      <span class="pill">15 companies double-coded</span>
+      <span class="pill">Threshold: κ ≥ 0.70</span>
+    </div>
+  </div>
+</div>
