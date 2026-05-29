@@ -1,0 +1,185 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+#app{padding:1.5rem 0;font-family:var(--font-sans);}
+.top-bar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;gap:12px;flex-wrap:wrap;}
+.top-bar-left h2{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
+.top-bar-left p{font-size:12px;color:var(--color-text-tertiary);}
+.top-actions{display:flex;gap:8px;flex-shrink:0;}
+.btn{font-size:13px;padding:0 14px;height:34px;cursor:pointer;border-radius:var(--border-radius-md);display:inline-flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--color-text-primary);color:var(--color-background-primary);border:none;}
+.btn-primary:hover{opacity:0.85;}
+.btn-secondary{background:transparent;color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);}
+.btn-secondary:hover{background:var(--color-background-secondary);}
+.btn:disabled{opacity:0.4;cursor:default;}
+.info-box{background:var(--color-background-info);border:0.5px solid var(--color-border-info);border-radius:var(--border-radius-md);padding:12px 14px;font-size:13px;color:var(--color-text-info);margin-bottom:1.25rem;line-height:1.6;}
+.section-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);margin-bottom:1rem;overflow:hidden;}
+.section-head{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:0.5px solid var(--color-border-tertiary);}
+.section-tag{font-size:11px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
+.tag-incident{background:var(--color-background-danger);color:var(--color-text-danger);}
+.tag-policy{background:var(--color-background-info);color:var(--color-text-info);}
+.tag-legal{background:var(--color-background-warning);color:var(--color-text-warning);}
+.tag-watch{background:var(--color-background-success);color:var(--color-text-success);}
+.section-count{font-size:12px;color:var(--color-text-tertiary);margin-left:auto;}
+.item{padding:12px 16px;border-bottom:0.5px solid var(--color-border-tertiary);}
+.item:last-child{border-bottom:none;}
+.item-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.f500-badge{font-size:10px;font-weight:500;background:var(--color-background-warning);color:var(--color-text-warning);padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.item-title{font-size:14px;font-weight:500;color:var(--color-text-primary);line-height:1.4;}
+.item-meta{font-size:12px;color:var(--color-text-tertiary);margin-bottom:4px;}
+.item-summary{font-size:13px;color:var(--color-text-secondary);line-height:1.6;}
+.item-url{display:inline-block;font-size:12px;color:var(--color-text-info);margin-top:4px;word-break:break-all;}
+.empty-state{padding:2.5rem 1rem;text-align:center;color:var(--color-text-tertiary);font-size:14px;line-height:1.7;}
+.email-panel{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-top:1rem;}
+.email-panel h3{font-size:14px;font-weight:500;margin-bottom:12px;color:var(--color-text-primary);}
+.field-row{display:flex;gap:8px;margin-bottom:8px;}
+.field-row input{flex:1;font-size:13px;}
+.email-body{width:100%;min-height:160px;font-size:12px;font-family:var(--font-mono);padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical;margin-bottom:8px;line-height:1.5;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;align-items:center;}
+.copy-toast{font-size:12px;color:var(--color-text-success);display:none;}
+.weekly-note{font-size:12px;color:var(--color-text-tertiary);margin-top:10px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);line-height:1.6;}
+</style>
+
+<h2 class="sr-only">UNC Hussman Fortune 500 AI Governance News Monitor</h2>
+
+<div id="app">
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <h2><i class="ti ti-building-skyscraper" aria-hidden="true" style="font-size:17px;vertical-align:-2px;margin-right:6px;"></i>AI Governance Monitor</h2>
+      <p>UNC Hussman - Fortune 500 AI Governance Audit Project</p>
+    </div>
+    <div class="top-actions">
+      <button class="btn btn-secondary" id="email-btn" onclick="toggleEmail()" disabled><i class="ti ti-mail" aria-hidden="true"></i>Email report</button>
+      <button class="btn btn-primary" id="run-btn" onclick="requestBriefing()"><i class="ti ti-refresh" aria-hidden="true"></i>Get briefing</button>
+    </div>
+  </div>
+
+  <div class="info-box" id="how-it-works">
+    <i class="ti ti-info-circle" aria-hidden="true" style="margin-right:6px;vertical-align:-1px;"></i>
+    Click "Get briefing" and Claude will search the web for this week's AI governance news, then return the results here. The Fortune 500 flag highlights companies from the audit list.
+  </div>
+
+  <div id="briefing-area">
+    <div class="empty-state">
+      <i class="ti ti-news" aria-hidden="true" style="font-size:28px;display:block;margin-bottom:10px;color:var(--color-border-secondary);"></i>
+      No briefing loaded yet. Click "Get briefing" above to start.
+    </div>
+  </div>
+
+  <div id="email-area" style="display:none;">
+    <div class="email-panel">
+      <h3><i class="ti ti-mail" aria-hidden="true" style="margin-right:6px;"></i>Email this report</h3>
+      <div class="field-row">
+        <input type="email" id="email-to" placeholder="Recipient email address" />
+        <input type="text" id="email-subject" placeholder="Subject line" />
+      </div>
+      <textarea class="email-body" id="email-body" readonly></textarea>
+      <div class="modal-actions">
+        <span class="copy-toast" id="copy-toast"><i class="ti ti-check" aria-hidden="true"></i> Copied</span>
+        <button class="btn btn-secondary" onclick="copyEmail()"><i class="ti ti-copy" aria-hidden="true"></i>Copy text</button>
+        <button class="btn btn-primary" onclick="openMailto()"><i class="ti ti-external-link" aria-hidden="true"></i>Open in mail app</button>
+      </div>
+      <div class="weekly-note">
+        <i class="ti ti-calendar" aria-hidden="true" style="margin-right:4px;vertical-align:-1px;"></i>
+        <strong>To receive this automatically every week:</strong> Open this conversation every Monday, click "Get briefing," then use "Open in mail app" to send it. For fully automated weekly delivery, the report needs to be set up as a scheduled server-side script. See instructions below the monitor for how to do that.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const FORTUNE500 = ['Microsoft','Walmart','Amazon','Apple','Alphabet','Google','Meta','JPMorgan','JP Morgan','Goldman Sachs','Bank of America','Citigroup','Wells Fargo','UnitedHealth','CVS','Exxon','Chevron','Berkshire','AT&T','Verizon','Ford','General Motors','GM','Boeing','Lockheed','Raytheon','IBM','Oracle','Salesforce','Intel','Nvidia','AMD','Cisco','Qualcomm','Tesla','Disney','Comcast','Netflix','Johnson & Johnson','Pfizer','Merck','AbbVie','UPS','FedEx','Home Depot','Costco','Target'];
+
+let lastBriefing = null;
+
+function isF500(text){ return FORTUNE500.some(c => text.includes(c)); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function requestBriefing(){
+  sendPrompt('Run the weekly AI governance briefing now. Search the web for the past 7 days of Fortune 500 AI governance news and return the structured JSON briefing.');
+}
+
+function renderBriefing(data){
+  lastBriefing = data;
+  let html = '';
+  const sections = [
+    ['Headline incidents','tag-incident', data.headlineIncidents],
+    ['New policies and frameworks','tag-policy', data.newPoliciesFrameworks],
+    ['Regulatory and legal','tag-legal', data.regulatoryLegal],
+    ['Worth watching','tag-watch', data.worthWatching]
+  ];
+  sections.forEach(([label, cls, items]) => {
+    if(!items || !items.length) return;
+    html += `<div class="section-card"><div class="section-head"><span class="section-tag ${cls}">${esc(label)}</span><span class="section-count">${items.length} item${items.length>1?'s':''}</span></div>`;
+    items.forEach(item => {
+      const f500 = isF500(JSON.stringify(item));
+      html += `<div class="item"><div class="item-top">${f500?'<span class="f500-badge">Fortune 500</span>':''}<span class="item-title">${esc(item.headline||item.title||'')}</span></div>`;
+      if(item.company||item.date) html += `<div class="item-meta">${esc([item.company,item.date].filter(Boolean).join(' - '))}</div>`;
+      html += `<div class="item-summary">${esc(item.summary||'')}</div>`;
+      if(item.url) html += `<a class="item-url" href="${esc(item.url)}">${item.urlVerified!==false ? esc(item.url) : 'URL unverified - search for this story'}</a>`;
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  if(!html) html = '<div class="empty-state">No items found for this period.</div>';
+  document.getElementById('briefing-area').innerHTML = html;
+  document.getElementById('how-it-works').style.display = 'none';
+  buildEmailDraft(data);
+  document.getElementById('email-btn').disabled = false;
+}
+
+function buildEmailDraft(data){
+  const d = data.weekOf || new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('email-subject').value = `AI Governance Monitor - Weekly Briefing - ${d}`;
+  const lines = [
+    'AI GOVERNANCE MONITOR - WEEKLY BRIEFING',
+    `Week of ${d}`,
+    'Prepared for: UNC Hussman Fortune 500 AI Governance Audit Project',
+    '',
+  ];
+  [['HEADLINE INCIDENTS',data.headlineIncidents],['NEW POLICIES AND FRAMEWORKS',data.newPoliciesFrameworks],['REGULATORY AND LEGAL DEVELOPMENTS',data.regulatoryLegal],['WORTH WATCHING',data.worthWatching]].forEach(([label,items])=>{
+    if(!items||!items.length) return;
+    lines.push(`--- ${label} ---`);
+    items.forEach((item,i)=>{
+      const f500 = isF500(JSON.stringify(item)) ? ' [Fortune 500]' : '';
+      lines.push(`${i+1}. ${item.headline||item.title||''}${f500}`);
+      if(item.company||item.date) lines.push(`   ${[item.company,item.date].filter(Boolean).join(' - ')}`);
+      lines.push(`   ${item.summary||''}`);
+      if(item.url) lines.push(`   ${item.urlVerified!==false ? item.url : 'URL unverified - search for this story'}`);
+      lines.push('');
+    });
+  });
+  lines.push('---');
+  lines.push('Generated by the UNC Hussman AI Governance News Monitor.');
+  lines.push('Fortune 500 AI Governance Audit Project - Hussman School of Journalism and Media.');
+  document.getElementById('email-body').value = lines.join('\n');
+}
+
+function toggleEmail(){
+  const a = document.getElementById('email-area');
+  a.style.display = a.style.display==='none' ? 'block' : 'none';
+}
+
+function copyEmail(){
+  navigator.clipboard.writeText(document.getElementById('email-body').value).then(()=>{
+    const t = document.getElementById('copy-toast');
+    t.style.display='inline';
+    setTimeout(()=>{ t.style.display='none'; },2000);
+  });
+}
+
+function openMailto(){
+  const to = encodeURIComponent(document.getElementById('email-to').value||'');
+  const subject = encodeURIComponent(document.getElementById('email-subject').value||'');
+  const body = encodeURIComponent(document.getElementById('email-body').value||'');
+  window.open(`mailto:${to}?subject=${subject}&body=${body}`);
+}
+
+window.addEventListener('message', function(e){
+  if(!e.data) return;
+  try {
+    const msg = typeof e.data==='string' ? JSON.parse(e.data) : e.data;
+    if(msg && msg.type==='briefing' && msg.data) renderBriefing(msg.data);
+  } catch(err){}
+});
+</script>
