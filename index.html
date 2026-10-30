@@ -1,747 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Clara Obeng-Akrofi | Portfolio</title>
-    <meta
-      name="description"
-      content="Portfolio of Clara Obeng-Akrofi, AI Graduate Assistant and data-driven product strategist."
-    />
+    <meta name="description" content="I build AI tools and turn data into measurable results that win clients and grow revenue." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #e7e4d9;
-        --card: #f4f2eb;
-        --text: #1f2f2b;
-        --muted: #3f5f55;
-        --sage: #a6b89a;
-        --peach: #c07a4b;
-        --navy: #1f2f2b;
-        --line: #d3d0c3;
-        --shadow: rgba(31, 47, 43, 0.12);
+        --bg: #E7E4D9;
+        --card: #F4F2EB;
+        --tx: #1F2F2B;
+        --mu: #3F5F55;
+        --co: #C07A4B;
+        --sg: #A6B89A;
+        --nv: #1F2F2B;
+        --bd: #d3d0c3;
       }
-
       * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
       body {
         margin: 0;
-        font-family: 'Poppins', sans-serif;
         background: var(--bg);
-        color: var(--text);
+        color: var(--tx);
+        font-family: 'Poppins', system-ui, sans-serif;
         line-height: 1.6;
+        overflow-x: hidden;
       }
-      a { color: inherit; }
-      img { max-width: 100%; display: block; }
-
-      .container {
-        width: min(1120px, calc(100% - 32px));
-        margin: 0 auto;
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        background: rgba(231, 228, 217, 0.9);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(31, 47, 43, 0.06);
-      }
+      .w { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
       nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 18px 0;
-        gap: 18px;
+        display: flex; justify-content: space-between; align-items: center; padding: 18px 0; font-size: 14px;
       }
-      .brand {
-        font-weight: 700;
-        letter-spacing: 0.02em;
-      }
-      .nav-links {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 18px;
-      }
-      .nav-links a {
-        color: var(--muted);
-        text-decoration: none;
-        font-size: 0.92rem;
-        font-weight: 500;
-      }
-      .nav-links a:hover { color: var(--peach); }
-
-      .hero {
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 40px;
-        align-items: center;
-        padding: 52px 0 44px;
-        position: relative;
-      }
-      .hero-copy {
-        position: relative;
-        z-index: 1;
-      }
-      .tag {
-        display: inline-block;
-        background: var(--sage);
-        color: var(--navy);
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-        padding: 7px 14px;
-        border-radius: 999px;
-      }
-      h1 {
-        margin: 18px 0 14px;
-        font-size: clamp(2.8rem, 5vw, 5rem);
-        line-height: 0.96;
-        letter-spacing: -0.05em;
-      }
-      h1 em {
-        color: var(--peach);
-        font-style: normal;
-      }
-      .intro {
-        margin: 0;
-        max-width: 580px;
-        padding-left: 14px;
-        border-left: 4px solid var(--peach);
-        font-size: 1.05rem;
-        color: var(--text);
-      }
-      .cta-row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 24px;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px 18px;
-        border-radius: 10px;
-        border: 1.5px solid var(--muted);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(192, 122, 75, 0.2);
-      }
-      .btn.primary {
-        background: var(--peach);
-        border-color: var(--peach);
-        color: var(--navy);
-      }
-      .btn.secondary {
-        background: var(--sage);
-        border-color: var(--sage);
-        color: var(--navy);
-      }
-
-      .hero-art {
-        position: relative;
-        min-height: 520px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .shape {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.9;
-      }
-      .shape.green {
-        width: 240px;
-        height: 240px;
-        right: 16px;
-        top: 30px;
-        background: rgba(121, 156, 126, 0.9);
-      }
-      .shape.peach {
-        width: 160px;
-        height: 160px;
-        left: 10px;
-        bottom: 16px;
-        background: rgba(192, 122, 75, 0.85);
-      }
-      .photo-frame {
-        position: relative;
-        z-index: 1;
-        width: min(100%, 430px);
-        background: #f3f0e9;
-        border-radius: 22px;
-        padding: 18px 18px 0 18px;
-        box-shadow: 0 18px 40px rgba(31, 47, 43, 0.08);
-      }
-      .photo-frame img {
-        width: 100%;
-        height: 500px;
-        object-fit: cover;
-        object-position: center top;
-        border-radius: 16px;
-      }
-
-      .stats-strip {
-        background: var(--navy);
-        color: #e7e4d9;
-      }
-      .stats-strip .container {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(130px, 1fr));
-        gap: 18px;
-        padding: 32px 0;
-        text-align: center;
-      }
-      .stat strong {
-        display: block;
-        font-size: clamp(1.8rem, 2vw, 2.5rem);
-        color: var(--peach);
-        line-height: 1.1;
-      }
-      .stat span {
-        color: var(--sage);
-        font-size: 0.82rem;
-      }
-
-      section {
-        padding: 64px 0;
-      }
-      h2 {
-        margin: 0 0 10px;
-        font-size: clamp(2rem, 3vw, 2.5rem);
-        line-height: 1.1;
-      }
-      h2::after {
-        content: "";
-        display: block;
-        width: 52px;
-        height: 4px;
-        border-radius: 999px;
-        background: var(--peach);
-        margin-top: 10px;
-      }
-      .section-sub {
-        margin: 0 0 24px;
-        color: var(--muted);
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px;
-      }
-      .card {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 24px;
-        box-shadow: 0 10px 18px var(--shadow);
-      }
-      .job {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-        gap: 18px;
-        align-items: center;
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-left: 5px solid var(--peach);
-        border-radius: 18px;
-        padding: 22px;
-      }
-      .company-logo {
-        width: 100%;
-        max-width: 130px;
-        height: 70px;
-        object-fit: contain;
-        background: #fff;
-        border-radius: 12px;
-        padding: 8px;
-        border: 1px solid var(--line);
-      }
-      .job h3 { margin: 0 0 6px; font-size: 1.1rem; }
-      .job .org { margin: 0; font-size: 0.88rem; color: var(--muted); font-weight: 600; }
-      .job .period { margin: 0 0 8px; font-size: 0.82rem; color: var(--muted); }
-      .job ul {
-        margin: 12px 0 0;
-        padding-left: 18px;
-      }
-      .job li {
-        margin: 6px 0;
-        color: var(--muted);
-      }
-
-      .project-grid {
-        display: grid;
-        gap: 22px;
-      }
-      .project {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 22px;
-      }
-      .project-tag {
-        font-size: 0.72rem;
-        letter-spacing: 0.08em;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .project h3 {
-        margin: 8px 0 8px;
-        font-size: clamp(1.5rem, 2vw, 2rem);
-      }
-      .project p { color: var(--muted); }
-      .project-image {
-        margin: 16px 0;
-        border-radius: 14px;
-        overflow: hidden;
-        border: 1px solid var(--line);
-      }
-      .project-image img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-      }
-      .stats-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 16px 0;
-      }
-      .mini-stat {
-        background: var(--sage);
-        color: var(--navy);
-        border-radius: 12px;
-        padding: 10px 16px;
-        min-width: 110px;
-      }
-      .mini-stat strong { display: block; font-size: 1.3rem; }
-      .mini-stat span { font-size: 0.75rem; }
-      .chip-row {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-top: 16px;
-      }
-      .chip {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 5px 10px;
-        font-size: 0.72rem;
-        color: var(--muted);
-      }
-      .link {
-        display: inline-block;
-        margin-top: 12px;
-        color: var(--text);
-        font-weight: 600;
-        text-decoration: none;
-        border-bottom: 2px solid var(--peach);
-      }
-
-      .edu-grid {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr 1fr;
-        gap: 22px;
-      }
-      .edu-card {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 22px;
-      }
-      .edu-row {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-      .edu-row img {
-        width: 52px;
-        height: 52px;
-        object-fit: contain;
-        background: #fff;
-        border-radius: 12px;
-        border: 1px solid var(--line);
-        padding: 6px;
-      }
-      .tile-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-      }
-      .tile {
-        text-align: center;
-        font-size: 0.72rem;
-        color: var(--muted);
-      }
-      .tile img {
-        width: 62px;
-        height: 62px;
-        object-fit: contain;
-        margin: 0 auto 8px;
-        background: #fff;
-        border-radius: 16px;
-        border: 1px solid var(--line);
-        padding: 6px;
-      }
-
-      .contact-box {
-        background: var(--navy);
-        color: #e7e4d9;
-        border-radius: 22px;
-        padding: 42px 24px;
-        text-align: center;
-      }
-      .contact-box p { margin: 12px auto; max-width: 640px; }
-      .contact-box a {
-        color: var(--peach);
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      footer {
-        padding: 28px 0 32px;
-        text-align: center;
-        color: var(--muted);
-        font-size: 0.82rem;
-      }
-
-      @media (max-width: 900px) {
-        .hero {
-          grid-template-columns: 1fr;
-          padding-top: 36px;
-        }
-        .stats-strip .container,
-        .edu-grid,
-        .grid-2 {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 640px) {
-        nav {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .nav-links {
-          gap: 10px 14px;
-        }
-        .job {
-          grid-template-columns: 1fr;
-        }
-        .company-logo {
-          max-width: 110px;
-        }
+      nav b { font-weight: 600; }
+      nav a { color: var(--mu); text-decoration: none; margin-left: 18px; font-weight: 500; }
+      nav a:hover { color: var(--co); }
+      .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; padding: 30px 0 56px; }
+      .tag { display: inline-block; background: var(--sg); color: #1F2F2B; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 99px; }
+      h1 { font-size: clamp(36px, 6vw, 58px); line-height: 1.1; margin: 14px 0 6px; }
+      h1 em { font-style: normal; color: var(--co); }
+      .imp { color: var(--tx); margin: 14px 0 0; max-width: 540px; padding-left: 14px; border-left: 4px solid var(--co); font-size: 16px; }
+      .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+      .b { padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 14px; text-decoration: none; border: 1.5px solid var(--mu); color: var(--tx); background: transparent; }
+      .b.p { background: var(--co); border-color: var(--co); color: #1F2F2B; }
+      .b.s { background: var(--sg); border-color: var(--sg); color: #1F2F2B; }
+      .ph { position: relative; }
+      .ph img { position: relative; z-index: 1; border-radius: 24px; width: 100%; max-width: 400px; margin-left: auto; aspect-ratio: 4/5; object-fit: cover; object-position: top; box-shadow: 14px 14px 0 var(--co); }
+      .strip { background: var(--nv); color: #E7E4D9; }
+      .strip .w { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 30px 20px; text-align: center; }
+      .strip b { display: block; font-size: 38px; color: var(--co); line-height: 1.1; }
+      .strip span { font-size: 13px; color: #A6B89A; }
+      section { padding: 46px 0; }
+      h2 { font-size: 28px; margin: 0 0 6px; }
+      h2::after { content: ""; display: block; width: 46px; height: 4px; background: var(--co); border-radius: 4px; margin-top: 8px; }
+      .sub { color: var(--mu); margin: 10px 0 26px; }
+      .grid { display: grid; gap: 20px; }
+      .g2 { grid-template-columns: 1fr 1fr; }
+      .card, .proj, .job { background: var(--card); border: 1px solid var(--bd); border-radius: 18px; padding: 24px; }
+      .job { display: grid; grid-template-columns: 190px 1fr; gap: 22px; border-left: 5px solid var(--co); }
+      .job img { border-radius: 12px; width: 100%; height: 100%; min-height: 140px; object-fit: cover; }
+      .job h3 { margin: 0; font-size: 18px; line-height: 1.3; }
+      .job .o { color: var(--mu); font-weight: 600; font-size: 14px; margin: 0; }
+      .job .d { color: var(--mu); font-size: 13px; margin: 0 0 8px; opacity: .85; }
+      ul { margin: 0; padding-left: 18px; color: var(--mu); }
+      li { margin: 5px 0; }
+      .pp { margin: 14px 0 8px; padding: 16px 16px 20px; border-radius: 14px; background: linear-gradient(135deg, var(--sg), var(--bg)); display: flex; flex-direction: column; align-items: center; }
+      .pp img { display: block; width: 100%; max-width: 380px; height: auto; border-radius: 12px; border: 5px solid #fff; box-shadow: 0 10px 24px rgba(31,47,43,.25); }
+      .proj .n { color: var(--mu); font-weight: 600; font-size: 13px; letter-spacing: .04em; }
+      .proj h3 { margin: 4px 0; font-size: 21px; }
+      .who { color: var(--mu); font-size: 13px; margin: 0 0 12px; }
+      .proj p { margin: 8px 0; }
+      .stats { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+      .stat { background: var(--sg); color: #1F2F2B; border-radius: 12px; padding: 10px 16px; }
+      .stat b { display: block; font-size: 21px; }
+      .stat span { font-size: 12px; }
+      .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+      .chips span { font-size: 12px; border: 1px solid var(--bd); border-radius: 99px; padding: 3px 11px; color: var(--mu); }
+      .lnk { display: inline-block; margin-top: 12px; color: var(--tx); font-weight: 600; font-size: 14px; border-bottom: 2px solid var(--co); text-decoration: none; }
+      .edu p { margin: 0 0 10px; font-size: 14px; color: var(--mu); }
+      .edu b { color: var(--tx); }
+      .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .tile { text-align: center; font-size: 12px; color: var(--mu); line-height: 1.3; }
+      .tile img { width: 64px; height: 64px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; margin: 0 auto 6px; display: block; border: 1px solid var(--bd); }
+      .ct { background: var(--nv); color: #E7E4D9; border-radius: 22px; padding: 42px; text-align: center; }
+      .ct h2 { display: inline-block; }
+      .ct a.l { color: var(--co); margin: 0 12px; font-weight: 600; }
+      footer { text-align: center; color: var(--mu); font-size: 13px; padding: 28px 0; }
+      @media (max-width: 780px) {
+        .hero, .job, .g2 { grid-template-columns: 1fr; }
+        .ph img { margin: 0 auto; }
+        .strip .w { grid-template-columns: 1fr 1fr; }
+        nav { flex-direction: column; align-items: flex-start; gap: 6px; }
+        nav div { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+        nav a { margin-left: 0; }
       }
     </style>
   </head>
   <body>
-    <div class="topbar">
-      <div class="container">
-        <nav>
-          <div class="brand">Clara Obeng-Akrofi</div>
-          <div class="nav-links">
-            <a href="#experience">My Experience</a>
-            <a href="#research">Research</a>
-            <a href="#projects">Projects</a>
-            <a href="#education">Education</a>
-            <a href="#contact">Contact</a>
+    <div class="w">
+      <nav>
+        <b>Clara Obeng-Akrofi</b>
+        <div>
+          <a href="#exp">My Experience</a>
+          <a href="#research">Research</a>
+          <a href="#work">Projects</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div>
+          <span class="tag">AI Graduate Assistant · UNC Chapel Hill</span>
+          <h1>Hello, I am <em>Clara.</em></h1>
+          <p class="imp">I build AI tools and turn data into measurable results that win clients and grow revenue.</p>
+          <div class="btns">
+            <a class="b p" href="#exp">My Experience</a>
+            <a class="b s" href="Clara_Obeng-Akrofi_Resume.pdf" download>Download Resume</a>
+            <a class="b" href="#research">Research</a>
           </div>
-        </nav>
+        </div>
+        <div class="ph">
+          <img src="headshot.jpg" alt="Headshot of Clara Obeng-Akrofi" />
+        </div>
+      </header>
+    </div>
+
+    <div class="strip">
+      <div class="w">
+        <div><b>$1M+</b><span>projected incremental revenue</span></div>
+        <div><b>35%</b><span>faster literature search workflow</span></div>
+        <div><b>40%</b><span>reporting time cut</span></div>
+        <div><b>10+</b><span>trained AI and data systems</span></div>
       </div>
     </div>
 
-    <main>
-      <div class="container hero">
-        <div class="hero-copy">
-          <span class="tag">AI Graduate Assistant · UNC Chapel Hill</span>
-          <h1>Hello, I am <em>Clara.</em></h1>
-          <p class="intro">
-            I build AI tools and turn data into measurable results that win clients and grow revenue.
-          </p>
-          <div class="cta-row">
-            <a class="btn primary" href="#experience">My Experience</a>
-            <a class="btn secondary" href="Clara_Obeng-Akrofi_Resume.pdf" download>Download Resume</a>
-            <a class="btn" href="#projects">Projects</a>
-          </div>
-        </div>
-
-        <div class="hero-art">
-          <div class="shape green"></div>
-          <div class="shape peach"></div>
-          <div class="photo-frame">
-            <img src="headshot.jpg" alt="Headshot of Clara Obeng-Akrofi" />
-          </div>
-        </div>
-      </div>
-
-      <div class="stats-strip">
-        <div class="container">
-          <div class="stat"><strong>$1M+</strong><span>projected incremental revenue</span></div>
-          <div class="stat"><strong>35%</strong><span>faster literature search workflow</span></div>
-          <div class="stat"><strong>40%</strong><span>reporting time cut</span></div>
-          <div class="stat"><strong>10+</strong><span>trained AI and data systems</span></div>
-        </div>
-      </div>
-
-      <section id="experience" class="container">
+    <div class="w">
+      <section id="exp">
         <h2>My Experience</h2>
-        <p class="section-sub">Four roles, each with measurable impact.</p>
-
-        <div class="grid-2">
-          <article class="job">
-            <img class="company-logo" src="duke.png" alt="Duke logo" />
+        <p class="sub">Four roles, each with measurable impact.</p>
+        <div class="grid g2">
+          <div class="job">
+            <img src="duke.png" alt="Duke logo" />
             <div>
               <h3>AI Graduate Assistant</h3>
-              <p class="org">Duke / UNC Collaboration</p>
-              <p class="period">2024–Present</p>
+              <p class="o">Duke / UNC Collaboration</p>
+              <p class="d">2024–Present</p>
               <ul>
                 <li>Build and evaluate LLM-powered AI agents with prompt engineering and human-in-the-loop validation.</li>
                 <li>Improve research workflows with AI-assisted literature discovery and strategic analysis.</li>
               </ul>
             </div>
-          </article>
+          </div>
 
-          <article class="job">
-            <img class="company-logo" src="ibs.png" alt="IBS Consulting logo" />
+          <div class="job">
+            <img src="ibs.png" alt="IBS Consulting logo" />
             <div>
               <h3>Product Manager, Go-To-Market and Client Solutions</h3>
-              <p class="org">IBS Consulting</p>
-              <p class="period">2023–2024</p>
+              <p class="o">IBS Consulting</p>
+              <p class="d">2023–2024</p>
               <ul>
                 <li>Led the development and launch of a client portal, aligning stakeholders and go-to-market strategy.</li>
                 <li>Prioritized product improvements based on 1,000+ user interactions and business requirements.</li>
               </ul>
             </div>
-          </article>
+          </div>
 
-          <article class="job">
-            <img class="company-logo" src="vodafone.png" alt="Vodafone logo" />
+          <div class="job">
+            <img src="vodafone.png" alt="Vodafone logo" />
             <div>
               <h3>Data and Operations Analyst</h3>
-              <p class="org">Vodafone</p>
-              <p class="period">2021–2023</p>
+              <p class="o">Vodafone</p>
+              <p class="d">2021–2023</p>
               <ul>
                 <li>Built dashboards for KPI and resource tracking to support operational decisions.</li>
                 <li>Automated reporting workflows in Python and SQL, reducing reporting time by 40%.</li>
               </ul>
             </div>
-          </article>
+          </div>
 
-          <article class="job">
-            <img class="company-logo" src="unc.png" alt="UNC logo" />
+          <div class="job">
+            <img src="unc.png" alt="UNC logo" />
             <div>
               <h3>AI Graduate Assistant</h3>
-              <p class="org">UNC Chapel Hill</p>
-              <p class="period">2024–Present</p>
+              <p class="o">UNC Chapel Hill</p>
+              <p class="d">2024–Present</p>
               <ul>
                 <li>Developed AI-powered systems and automation workflows for research and decision support.</li>
                 <li>Created data-driven tools that connect statistical insight with practical user outcomes.</li>
               </ul>
             </div>
-          </article>
+          </div>
         </div>
       </section>
 
-      <section id="research" class="container">
+      <section id="research">
         <h2>Research</h2>
-        <p class="section-sub">Presented at two conferences in 2025.</p>
-        <div class="grid-2">
+        <p class="sub">Presented at two conferences in 2025.</p>
+        <div class="grid g2">
           <article class="card">
             <h3>AI in Health Sciences Research</h3>
-            <p>
-              I presented work evaluating AI-generated prompts versus librarian-written prompts for health science research tasks.
-            </p>
-            <div class="chip-row">
-              <span class="chip">Prompt engineering</span>
-              <span class="chip">Health sciences</span>
-              <span class="chip">Evaluation</span>
+            <p>I presented work evaluating AI-generated prompts versus librarian-written prompts for health science research tasks.</p>
+            <div class="chips">
+              <span>Prompt engineering</span>
+              <span>Health sciences</span>
+              <span>Evaluation</span>
             </div>
           </article>
 
           <article class="card">
             <h3>iPICS Assessment</h3>
-            <p>
-              My research used descriptive statistics and assessment tools to evaluate digital health information systems for user impact and adoption.
-            </p>
-            <div class="chip-row">
-              <span class="chip">Data analysis</span>
-              <span class="chip">Assessment</span>
-              <span class="chip">Research design</span>
+            <p>My research used descriptive statistics and assessment tools to evaluate digital health information systems for user impact and adoption.</p>
+            <div class="chips">
+              <span>Data analysis</span>
+              <span>Assessment</span>
+              <span>Research design</span>
             </div>
           </article>
         </div>
       </section>
 
-      <section id="projects" class="container">
+      <section id="work">
         <h2>Projects</h2>
-        <p class="section-sub">Work from my role at UNC Libraries, graduate coursework, and analytics projects.</p>
-
-        <div class="project-grid">
-          <article class="project">
-            <div class="project-tag">01 · AI automation</div>
-            <h3>UNC Hussman AI Governance Monitor</h3>
-            <div class="project-image">
-              <img src="briefing-email.jpg" alt="Weekly AI Governance Monitor briefing email" />
+        <p class="sub">Work from my role at UNC Libraries, my graduate coursework and Tableau dashboards.</p>
+        <div class="grid">
+          <article class="proj">
+            <div class="n">01 · AI AUTOMATION</div>
+            <h3>UNC Hussman AI Governance News Monitor</h3>
+            <figure class="pp"><img src="briefing-email.jpg" alt="AI governance monitor briefing email" /></figure>
+            <p>An automated weekly briefing on Fortune 500 AI governance news.</p>
+            <div class="stats">
+              <div class="stat"><b>Weekly</b><span>briefing</span></div>
+              <div class="stat"><b>Python</b><span>automation</span></div>
             </div>
-            <p>
-              I built a weekly briefing that tracks AI governance developments across Fortune 500 companies using automation and web search.
-            </p>
-            <div class="mini-stat-row stats-row">
-              <div class="mini-stat"><strong>Weekly</strong><span>briefing</span></div>
-              <div class="mini-stat"><strong>Python</strong><span>automation</span></div>
-            </div>
-            <div class="chip-row">
-              <span class="chip">Python</span>
-              <span class="chip">Anthropic API</span>
-              <span class="chip">Web search</span>
-              <span class="chip">Email automation</span>
-            </div>
-            <a class="link" href="https://github.com/Clara-co/Governance-Monitor">View on GitHub</a>
+            <div class="chips"><span>Python</span><span>Anthropic API</span><span>Web search</span><span>HTML email</span></div>
+            <a class="lnk" href="https://github.com/Clara-co/Governance-Monitor">View on GitHub</a>
           </article>
 
-          <article class="project">
-            <div class="project-tag">02 · text mining</div>
+          <article class="proj">
+            <div class="n">02 · TEXT MINING</div>
             <h3>AI vs Human Text Detection</h3>
-            <div class="project-image">
-              <img src="ai-features.jpg" alt="Text feature comparison for AI vs human writing" />
-            </div>
-            <p>
-              I helped build a classifier identifying whether writing was AI-generated or human-based using large-scale text mining and machine learning.
-            </p>
-            <div class="stats-row">
-              <div class="mini-stat"><strong>487k</strong><span>labeled texts</span></div>
-              <div class="mini-stat"><strong>90%</strong><span>accuracy</span></div>
-            </div>
-            <div class="chip-row">
-              <span class="chip">LightSIDE</span>
-              <span class="chip">Python</span>
-              <span class="chip">Logistic regression</span>
-              <span class="chip">N-grams</span>
-            </div>
+            <figure class="pp"><img src="ai-features.jpg" alt="AI vs human text detection features" /></figure>
+            <p>Most research hunts for the “AI fingerprint.” We flipped the question: which features best identify human writing?</p>
+            <div class="stats"><div class="stat"><b>487,000</b><span>labeled texts</span></div><div class="stat"><b>90%</b><span>accuracy</span></div></div>
+            <div class="chips"><span>LightSIDE</span><span>Python</span><span>Logistic regression</span><span>N-grams</span></div>
           </article>
 
-          <article class="project">
-            <div class="project-tag">03 · data visualization</div>
+          <article class="proj">
+            <div class="n">03 · DATA VISUALIZATION</div>
             <h3>Where Did My Money Go?</h3>
-            <div class="project-image">
-              <img src="money-icons.jpg" alt="Inflation and cost visualization" />
-            </div>
-            <p>
-              I cleaned BLS CPI and BEA data to make inflation and purchasing power changes visually intuitive for a broad audience.
-            </p>
-            <div class="stats-row">
-              <div class="mini-stat"><strong>68¢</strong><span>housing purchasing power</span></div>
-              <div class="mini-stat"><strong>10 yrs</strong><span>price data</span></div>
-            </div>
-            <div class="chip-row">
-              <span class="chip">BLS CPI</span>
-              <span class="chip">BEA RPP</span>
-              <span class="chip">Excel</span>
-              <span class="chip">Data storytelling</span>
-            </div>
+            <figure class="pp"><img src="money-icons.jpg" alt="Inflation and consumer prices visualization" /></figure>
+            <p>I cleaned and combined a decade of BLS Consumer Price Index files and BEA Regional Price Parities into one dataset.</p>
+            <div class="stats"><div class="stat"><b>68¢</b><span>housing purchasing power</span></div><div class="stat"><b>10 years</b><span>of price data</span></div></div>
+            <div class="chips"><span>BLS CPI</span><span>BEA RPP</span><span>Excel</span><span>Data storytelling</span></div>
           </article>
 
-          <article class="project">
-            <div class="project-tag">04 · dashboard design</div>
-            <h3>Beverage Industry Dashboard</h3>
-            <div class="project-image">
-              <img src="wine-dashboard.jpg" alt="Wine production dashboard" />
-            </div>
-            <p>
-              I built a market dashboard analyzing global wine production, U.S. output by color, and country-level pricing patterns for strategic decision-making.
-            </p>
-            <div class="stats-row">
-              <div class="mini-stat"><strong>70+</strong><span>Tableau views</span></div>
-              <div class="mini-stat"><strong>Global</strong><span>market view</span></div>
-            </div>
-            <div class="chip-row">
-              <span class="chip">Tableau</span>
-              <span class="chip">Market analysis</span>
-              <span class="chip">Interactive filters</span>
-            </div>
+          <article class="proj">
+            <div class="n">04 · BEVERAGE INDUSTRY CASE</div>
+            <h3>Beverage Industry Dashboard: Where Wine Is Made and What It Sells For</h3>
+            <figure class="pp"><img src="wine-dashboard.jpg" alt="Wine dashboard" /></figure>
+            <p>I built a market dashboard analyzing global wine production, U.S. output by color, and country-level pricing patterns.</p>
+            <div class="stats"><div class="stat"><b>70+</b><span>Tableau views</span></div><div class="stat"><b>Global</b><span>market view</span></div></div>
+            <div class="chips"><span>Tableau</span><span>Market analysis</span><span>Interactive filters</span><span>Dashboard design</span></div>
           </article>
         </div>
       </section>
 
-      <section id="education" class="container">
+      <section id="education">
         <h2>Education</h2>
-        <div class="edu-grid">
-          <div class="edu-card">
-            <div class="edu-row">
-              <img src="unc.png" alt="UNC logo" />
-              <div>
-                <strong>MS, Data and Information Science</strong><br />
-                <span style="color: var(--muted);">UNC Chapel Hill · May 2027</span>
-              </div>
-            </div>
-            <p style="margin: 0; color: var(--muted);">
-              Focused on artificial intelligence, data strategy, and human-centered analytics.
-            </p>
+        <div class="grid g2" style="margin-top:26px">
+          <div class="card edu">
+            <h3>Education</h3>
+            <p class="ed"><img src="unc.png" alt="UNC logo" style="width:48px;height:48px;object-fit:contain;vertical-align:middle;margin-right:12px;display:inline-block;" /><span><b>MS, Data and Information Science</b><br />UNC Chapel Hill · May 2027</span></p>
           </div>
-
-          <div class="edu-card">
-            <h3 style="margin-top:0;">Skills</h3>
-            <div class="chip-row">
-              <span class="chip">Excel</span>
-              <span class="chip">SQL</span>
-              <span class="chip">Python</span>
-              <span class="chip">Tableau</span>
-              <span class="chip">Power BI</span>
-              <span class="chip">Generative AI</span>
-            </div>
+          <div class="card">
+            <h3>Skills</h3>
+            <div class="chips"><span>Excel</span><span>SQL</span><span>Python</span><span>Tableau</span><span>Power BI</span><span>Generative AI</span></div>
           </div>
-
-          <div class="edu-card">
-            <h3 style="margin-top:0;">Certifications &amp; leadership</h3>
-            <div class="tile-grid">
-              <div class="tile">
-                <img src="microsoft.png" alt="Microsoft logo" />
-                Microsoft Azure AI Fundamentals
-              </div>
-              <div class="tile">
-                <img src="rice.png" alt="Rice University logo" />
-                Rice University Programming
-              </div>
-              <div class="tile">
-                <img src="gwc.png" alt="Girls Who Code logo" />
-                Girls Who Code Mentor
-              </div>
-              <div class="tile">
-                <img src="unc.png" alt="UNC logo" />
-                Student Tech Council
-              </div>
+          <div class="card">
+            <h3>Certifications and leadership</h3>
+            <div class="tiles">
+              <div class="tile"><img src="microsoft.png" alt="Microsoft logo" />Microsoft Azure AI Fundamentals</div>
+              <div class="tile"><img src="rice.png" alt="Rice University logo" />Rice University Programming</div>
+              <div class="tile"><img src="gwc.png" alt="Girls Who Code logo" />Girls Who Code Mentor</div>
+              <div class="tile"><img src="unc.png" alt="UNC logo" />UNC Chapel Hill Student Technology Council</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" class="container">
-        <div class="contact-box">
-          <h2 style="display:inline-block; margin-bottom: 0; color: #e7e4d9;">Let’s work together</h2>
-          <p>
-            Open to conversations about roles in AI, product, project management, strategy, and business analytics.
-          </p>
-          <p>
-            <a href="mailto:clara.oa@icloud.com">clara.oa@icloud.com</a>
-          </p>
+      <section id="contact">
+        <div class="ct">
+          <h2>Let’s work together</h2>
+          <p>Open to conversations about roles in AI, product, project management, strategy and business analytics.</p>
+          <p><a class="l" href="mailto:clara.oa@icloud.com">clara.oa@icloud.com</a></p>
         </div>
       </section>
-    </main>
+    </div>
 
     <footer>© 2026 Clara Obeng-Akrofi</footer>
   </body>
