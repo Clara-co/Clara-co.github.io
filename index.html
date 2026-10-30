@@ -66,6 +66,7 @@
         text-decoration: none;
         font-size: 0.92rem;
         font-weight: 500;
+        transition: color 0.2s ease;
       }
       .nav-links a:hover { color: var(--peach); }
       .hero {
@@ -89,12 +90,14 @@
         letter-spacing: 0.03em;
         padding: 7px 14px;
         border-radius: 999px;
+        animation: fadeUp 0.8s ease both;
       }
       h1 {
         margin: 18px 0 14px;
         font-size: clamp(2.6rem, 5vw, 5rem);
         line-height: 0.96;
         letter-spacing: -0.05em;
+        animation: fadeUp 0.9s ease 0.1s both;
       }
       h1 em {
         color: var(--peach);
@@ -107,12 +110,14 @@
         border-left: 4px solid var(--peach);
         font-size: 1.05rem;
         color: var(--text);
+        animation: fadeUp 0.9s ease 0.2s both;
       }
       .cta-row {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         margin-top: 24px;
+        animation: fadeUp 0.9s ease 0.3s both;
       }
       .btn {
         display: inline-flex;
@@ -142,11 +147,13 @@
       }
       .hero-art {
         position: relative;
+        animation: floatIn 1s ease 0.25s both;
       }
       .shape {
         position: absolute;
         border-radius: 50%;
         opacity: 0.9;
+        animation: drift 8s ease-in-out infinite alternate;
       }
       .shape.green {
         width: 240px;
@@ -161,6 +168,7 @@
         left: 10px;
         bottom: 16px;
         background: rgba(192, 122, 75, 0.85);
+        animation-delay: 0.7s;
       }
       .photo-frame {
         position: relative;
@@ -171,6 +179,11 @@
         border-radius: 22px;
         padding: 18px 18px 0 18px;
         box-shadow: 0 18px 40px rgba(31, 47, 43, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .photo-frame:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 24px 44px rgba(31, 47, 43, 0.12);
       }
       .photo-frame img {
         width: 100%;
@@ -233,6 +246,11 @@
         border-radius: 18px;
         padding: 24px;
         box-shadow: 0 6px 18px var(--shadow);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .card:hover, .project:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 28px rgba(31, 47, 43, 0.12);
       }
       .job {
         display: grid;
@@ -274,6 +292,7 @@
         border: 1px solid var(--line);
         border-radius: 18px;
         padding: 22px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
       }
       .project-tag {
         font-size: 0.72rem;
@@ -296,6 +315,10 @@
         width: 100%;
         height: 250px;
         object-fit: cover;
+        transition: transform 0.35s ease;
+      }
+      .project:hover .project-image img {
+        transform: scale(1.04);
       }
       .stats-row {
         display: flex;
@@ -396,6 +419,40 @@
         padding: 28px 0 40px;
         font-size: 0.82rem;
       }
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes floatIn {
+        from {
+          opacity: 0;
+          transform: translateY(18px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes drift {
+        0% { transform: translateY(0) translateX(0); }
+        50% { transform: translateY(-10px) translateX(8px); }
+        100% { transform: translateY(14px) translateX(-8px); }
+      }
       @media (max-width: 900px) {
         .hero, .grid-2, .project-grid, .edu-grid {
           grid-template-columns: 1fr;
@@ -476,8 +533,8 @@
         <section id="experience">
           <h2>My Experience</h2>
           <p class="section-sub">Four roles, each with measurable impact.</p>
-          <div class="grid-2">
-            <article class="card job">
+          <div class="grid-2 reveal">
+            <article class="card job reveal">
               <img class="company-logo" src="duke.png" alt="Duke logo" />
               <div>
                 <h3>AI Graduate Assistant</h3>
@@ -490,7 +547,7 @@
               </div>
             </article>
 
-            <article class="card job">
+            <article class="card job reveal">
               <img class="company-logo" src="ibs.png" alt="IBS Consulting logo" />
               <div>
                 <h3>Product Manager, Go-To-Market and Client Solutions</h3>
@@ -503,7 +560,7 @@
               </div>
             </article>
 
-            <article class="card job">
+            <article class="card job reveal">
               <img class="company-logo" src="vodafone.png" alt="Vodafone logo" />
               <div>
                 <h3>Data and Operations Analyst</h3>
@@ -516,7 +573,7 @@
               </div>
             </article>
 
-            <article class="card job">
+            <article class="card job reveal">
               <img class="company-logo" src="unc.png" alt="UNC logo" />
               <div>
                 <h3>AI Graduate Assistant</h3>
@@ -534,8 +591,8 @@
         <section id="research">
           <h2>Research</h2>
           <p class="section-sub">Presented at two conferences in 2025.</p>
-          <div class="grid-2">
-            <article class="card">
+          <div class="grid-2 reveal">
+            <article class="card reveal">
               <h3>AI in Health Sciences Research</h3>
               <p>I presented work evaluating AI-generated prompts versus librarian-written prompts for health science research tasks.</p>
               <div class="chip-row">
@@ -545,7 +602,7 @@
               </div>
             </article>
 
-            <article class="card">
+            <article class="card reveal">
               <h3>iPICS Assessment</h3>
               <p>My research used descriptive statistics and assessment tools to evaluate digital health information systems for user impact and adoption.</p>
               <div class="chip-row">
@@ -560,8 +617,8 @@
         <section id="projects">
           <h2>Projects</h2>
           <p class="section-sub">Work from my role at UNC Libraries, graduate coursework, and analytics projects.</p>
-          <div class="project-grid">
-            <article class="project">
+          <div class="project-grid reveal">
+            <article class="project reveal">
               <div class="project-tag">01 · AI automation</div>
               <h3>UNC Hussman AI Governance News Monitor</h3>
               <div class="project-image"><img src="briefing-email.jpg" alt="AI governance briefing email" /></div>
@@ -579,7 +636,7 @@
               <a class="link" href="https://github.com/Clara-co/Governance-Monitor">View on GitHub</a>
             </article>
 
-            <article class="project">
+            <article class="project reveal">
               <div class="project-tag">02 · text mining</div>
               <h3>AI vs Human Text Detection</h3>
               <div class="project-image"><img src="ai-features.jpg" alt="AI vs human text detection features" /></div>
@@ -596,7 +653,7 @@
               </div>
             </article>
 
-            <article class="project">
+            <article class="project reveal">
               <div class="project-tag">03 · data visualization</div>
               <h3>Where Did My Money Go?</h3>
               <div class="project-image"><img src="money-icons.jpg" alt="Inflation cost visualization" /></div>
@@ -613,7 +670,7 @@
               </div>
             </article>
 
-            <article class="project">
+            <article class="project reveal">
               <div class="project-tag">04 · dashboard design</div>
               <h3>Beverage Industry Dashboard: Where Wine Is Made and What It Sells For</h3>
               <div class="project-image"><img src="wine-dashboard.jpg" alt="Wine dashboard" /></div>
@@ -634,8 +691,8 @@
 
         <section id="education">
           <h2>Education</h2>
-          <div class="edu-grid">
-            <div class="card">
+          <div class="edu-grid reveal">
+            <div class="card reveal">
               <h3>Education</h3>
               <div class="edu-row">
                 <img src="unc.png" alt="UNC logo" />
@@ -646,7 +703,7 @@
               </div>
             </div>
 
-            <div class="card">
+            <div class="card reveal">
               <h3>Skills</h3>
               <div class="chip-row">
                 <span class="chip">Excel</span>
@@ -658,7 +715,7 @@
               </div>
             </div>
 
-            <div class="card">
+            <div class="card reveal">
               <h3>Certifications & Leadership</h3>
               <div class="tile-grid">
                 <div class="tile"><img src="microsoft.png" alt="Microsoft logo" />Microsoft Azure AI Fundamentals</div>
@@ -671,7 +728,7 @@
         </section>
 
         <section id="contact">
-          <div class="contact-box">
+          <div class="contact-box reveal">
             <h2>Let’s work together</h2>
             <p>Open to conversations about roles in AI, product, project management, strategy and business analytics.</p>
             <p><a href="mailto:clara.oa@icloud.com">clara.oa@icloud.com</a></p>
@@ -681,5 +738,18 @@
     </main>
 
     <footer>© 2026 Clara Obeng-Akrofi</footer>
+
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>
