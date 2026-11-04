@@ -111,7 +111,7 @@ a{color:inherit}
 .tablet{position:absolute;right:-10%;bottom:-8%;z-index:2;width:56%;aspect-ratio:4/3;border-radius:20px;padding:10px;
   background:linear-gradient(160deg,#fff,#f1e6f6);box-shadow:0 30px 60px rgba(43,27,68,.28);transform:perspective(900px) rotateY(-14deg) rotateZ(-5deg)}
 .screen{height:100%;border-radius:12px;background:linear-gradient(180deg,var(--plum-0),var(--plum-1));padding:12px 14px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;color:#fff}
-.screen .top{display:flex;justify-content:space-between;align-items:center;font:700 9px/1 var(--body);letter-spacing:.14em;color:var(--on-dark-soft)}
+.screen .top{display:flex;justify-content:flex-start;align-items:baseline;gap:6px;font:600 10px/1 var(--body);letter-spacing:.02em;color:var(--on-dark-soft);white-space:nowrap}
 .screen .top b{font:800 15px/1 var(--display);letter-spacing:-.01em;color:#fff}
 .bars{display:flex;align-items:flex-end;gap:6%;height:100%;position:relative}
 .bars span{flex:1;border-radius:4px 4px 2px 2px;background:linear-gradient(180deg,var(--pink),rgba(240,127,180,.35))}
@@ -151,7 +151,7 @@ a{color:inherit}
 .mq-track{display:flex;width:max-content;animation:mq 28s linear infinite}
 .mq-track span{display:flex;align-items:center;gap:28px;padding-right:28px;font:700 clamp(18px,2vw,26px)/1 var(--display);letter-spacing:-.01em;white-space:nowrap}
 .mq-track i{font-style:normal;color:var(--pink);font-size:.7em}
-@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes mq{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
 
 /* ---------- Selected work ---------- */
 .work-sticky{position:sticky;top:0;min-height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-block:90px 50px}
@@ -356,7 +356,7 @@ a{color:inherit}
         <span class="hello" aria-hidden="true">Hi, I'm Clara</span>
         <div class="tablet" aria-hidden="true">
           <div class="screen">
-            <div class="top"><span>GROWTH · Q3</span><b>$1M+</b></div>
+            <div class="top"><b>$1M+</b><span>projected revenue</span></div>
             <div class="bars">
               <span style="height:34%"></span><span style="height:48%"></span><span style="height:42%"></span><span style="height:63%"></span><span style="height:58%"></span><span style="height:80%"></span><span style="height:94%"></span>
               <svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="4,72 19,60 33,64 48,44 62,48 77,26 94,12" fill="none" stroke="#fff" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -413,8 +413,7 @@ a{color:inherit}
     </div>
     <div class="marquee" aria-label="Tools: Python, SQL, Excel, Tableau, Power BI, Generative AI, LLM workflows, Anthropic API">
       <div class="mq-track" aria-hidden="true">
-        <span>Python <i>✦</i> SQL <i>✦</i> Excel <i>✦</i> Tableau <i>✦</i> Power BI <i>✦</i> Generative AI <i>✦</i> LLM workflows <i>✦</i> Anthropic API <i>✦</i></span>
-        <span>Python <i>✦</i> SQL <i>✦</i> Excel <i>✦</i> Tableau <i>✦</i> Power BI <i>✦</i> Generative AI <i>✦</i> LLM workflows <i>✦</i> Anthropic API <i>✦</i></span>
+        <span>Python <i>✦</i> SQL <i>✦</i> Excel <i>✦</i> Tableau <i>✦</i> Power BI <i>✦</i> Generative AI <i>✦</i> LLM workflows <i>✦</i> Anthropic API</span>
       </div>
     </div>
   </section>
@@ -525,7 +524,7 @@ a{color:inherit}
   <section class="band light from-dark contact" id="contact" aria-labelledby="contact-h">
     <div class="wrap">
       <h2 id="contact-h" class="rise">Got an idea?<br>Let's build it.</h2>
-      <p>Open to roles in AI, strategy, business analytics, product, and banking.</p>
+      <p>Open to full-time opportunities starting May 2027 in AI strategy, product, analytics, and technology.</p>
       <div class="btns">
         <a class="btn solid" href="mailto:cobeng@unc.edu">Contact me →</a>
         <a class="btn line" target="_blank" rel="noopener" href="https://clara-co.github.io/Clara_Obeng-Akrofi_Resume.pdf">Download résumé</a>
